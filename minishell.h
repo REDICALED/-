@@ -22,6 +22,7 @@
 
 typedef	struct s_node
 {
+	*input;
 	
 }				t_nodea;
 
@@ -31,4 +32,8 @@ typedef struct s_cmd_list
 	int			pipe;
 }					t_cmd_list;
 
+
 #endif
+
+
+토큰화를 하고, 실행부분을 아주 간단하게 해서 눈으로 확인
