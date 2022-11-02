@@ -12,31 +12,37 @@
 
 NAME = minishell
 
-SRCS = main.c \
+SRC_DIR	:= ./srcs
+INC_DIR	:= ./includes
+OBJ_DIR	:= ./objects
+LIB_DIR	:= ./libft
+
+SRC = main.c \
 		utils.c \
-		list_utils.c \
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 LFLAGS = -lreadline
 RM = rm -rf
 
-OBJS = ${SRCS:.c=.o}
+OBJ := $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(LFLAGS) $(OBJS) -o $(NAME)
+$(NAME): $(OBJ)
+	make -C $(LIB_DIR)
+	$(CC) $(OBJ) -L $(LIB_DIR) -l ft -o $(NAME)
 
-re: fclean all
+$(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -I$(LIB_DIR) -I$(INC_DIR) -o $@ -c $<
 
 clean:
-	$(RM) $(OBJS)
+	rm -rf $(OBJ)
+	make -C $(LIB_DIR) clean
 
 fclean: clean
-	$(RM) $(NAME)
+	rm -rf $(NAME)
+	make -C $(LIB_DIR) fclean
 
-%.o : %.c
-	$(CC) $(FLAGS) -c $< -o $@
-
-.PHONY: all clean fclean re
+re: fclean all

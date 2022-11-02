@@ -24,13 +24,3 @@ int	is_space(char *line)
 	}
 	return (1);
 }
-
-int	ft_strlen(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-		i++;
-	return (i);
-}

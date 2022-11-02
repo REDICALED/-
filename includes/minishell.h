@@ -58,6 +58,9 @@ typedef	struct s_token_list
 	int		len;
 }				t_token_list;
 
+ABC "$CC"
+
+
 int	is_space(char *line);
 int	ft_strlen(char *line);
 
