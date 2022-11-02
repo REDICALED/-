@@ -6,7 +6,7 @@
 #    By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/30 08:53:03 by jinhokim          #+#    #+#              #
-#    Updated: 2022/10/30 09:32:13 by jinhokim         ###   ########.fr        #
+#    Updated: 2022/11/02 15:13:42 by jinhokim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = minishell
 
 SRCS = main.c \
 		utils.c \
+		list_utils.c \
 
 CC = cc
 FLAGS = -Wall -Wextra -Werror

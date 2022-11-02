@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 09:00:35 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/10/30 09:02:24 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/01 21:11:47 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,14 @@ int	is_space(char *line)
 			return (0);
 	}
 	return (1);
+}
+
+int	ft_strlen(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+		i++;
+	return (i);
 }
