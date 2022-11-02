@@ -11,29 +11,27 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "libft.h"
 
-t_node  *add_node()
+void	init_global(t_global *global, char *line)
 {
-    t_node  *node;
-
-    node = (t_node *)malloc(sizeof(t_node));
-    node->str = NULL;
-    node->token = NULL;
-    node->prev = NULL;
-    node->next = NULL;
-    return (node);
+	global->len = (int)ft_strlen(line);
+	global->line = line;
+	global->token_count = 0;
 }
 
-void    tokenize(char *line, t_node *token_list)
+void    tokenize(char *line, t_global *global)
 {
     int i;
-    t_info  *info;
     
-    printf("%s\n", line);
-    i = -1;
-    info = (t_info *)malloc(sizeof(t_info));
-    while (++i < ft_strlen(line))
+    i = 0;
+	init_global(global, line);
+    while (1)
     {
+		if (is_1(global, i))
+			break ;
+		if (is_2(global, i))
+			break ;
         // EOF인지?
 		
 		// 이전 캐릭터가 operator의 일부가 될 가능성이 있고, 현재 캐릭터가
@@ -54,14 +52,13 @@ void    tokenize(char *line, t_node *token_list)
 		// 현재 문자가 일반 char이고, 뒤에 문자와 연결되면 그 두개 합쳐라.
 		
 		// 현재 문자는 char 문자열의 시작 문자가 된다.
-		
     }
 }
 
 int main(int argc, char **argv, char **envp)
 {
     char            *line;
-    t_token_list    token_list;
+    t_global    global;
 
     (void)argc;
     (void)argv;
@@ -69,16 +66,10 @@ int main(int argc, char **argv, char **envp)
     while (42)
     {
         line = readline("minishell $ ");
-        // finish
-        if (line == NULL || is_space(line))
-        {
-            free(line);
-            break ;
-        }
         // parsing start
-        else if (*line)
+		if (*line)
         {
-            tokenize(line, &token_list);
+            tokenize(line, &global);
         }
         free(line);
     }

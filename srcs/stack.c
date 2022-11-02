@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	init_token_list(t_token_list *token_list)
+void	init_token_list(t_global_list *token_list)
 {
 	token_list->len = 0;
 	token_list->head = NULL;

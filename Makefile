@@ -19,10 +19,11 @@ LIB_DIR	:= ./libft
 
 SRC = main.c \
 		utils.c \
+		tokenize_util.c \
+
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-LFLAGS = -lreadline
 RM = rm -rf
 
 OBJ := $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
@@ -31,7 +32,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C $(LIB_DIR)
-	$(CC) $(OBJ) -L $(LIB_DIR) -l ft -o $(NAME)
+	$(CC) $(OBJ) -L $(LIB_DIR) -lreadline -l ft -o $(NAME)
 
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)
