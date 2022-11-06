@@ -18,7 +18,7 @@ void	be0(int *i, int *j)
 	*j = 0;
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char s2)
 {
 	int		i;
 	int		j;
@@ -27,7 +27,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	if (!s1 || !s2)
 		return (0);
-	len = ft_strlen(s1) + ft_strlen(s2);
+	len = ft_strlen(s1) + 1;
 	ans = (char *)malloc(sizeof(*s1) * (len + 1));
 	if (!ans)
 		return (0);
@@ -37,12 +37,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		*(ans + i) = *(s1 + i);
 		i++;
 	}
-	while (*(s2 + j) != '\0')
-	{
-		*(ans + i) = *(s2 + j);
-		i++;
-		j++;
-	}
+	*(ans + i) = s2;
+	i++;
 	*(ans + i) = '\0';
+	free(s1);
 	return (ans);
 }

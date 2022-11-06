@@ -24,3 +24,20 @@ int	is_space(char *line)
 	}
 	return (1);
 }
+
+void ft_error(char *str)
+{
+	printf("%s\n", str);
+}
+
+void ft_print_node(t_node *head)
+{
+	t_node *node;
+	
+	node = head->next;
+	while (node)
+	{
+		printf("token: %d, str: %s\n", node->token, node->str);
+		node = node->next;
+	}
+}

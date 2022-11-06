@@ -19,7 +19,10 @@ LIB_DIR	:= ./libft
 
 SRC = main.c \
 		utils.c \
+		tokenize_count.c \
+		tokenize_count2.c \
 		tokenize_util.c \
+
 
 
 CC = cc
