@@ -16,7 +16,6 @@ int	count_6(t_global *global, int i)
 	return (0);
 }
 
-// space 토큰 추가
 int	count_7(t_global *global, int i)
 {
 	if (global->line[i] == ' ')

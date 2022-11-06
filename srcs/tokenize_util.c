@@ -70,4 +70,5 @@ void    tokenize(char *line, t_global *global)
 			i++;
 	}
 	ft_print_node(global->head);
+	exit(1);
 }
