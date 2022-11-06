@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 08:54:21 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/02 15:13:43 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/06 23:29:17 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int main(int argc, char **argv, char **envp)
 		if (*line)
         {
             tokenize(line, &global);
+            free_global(&global);
         }
         free(line);
     }
