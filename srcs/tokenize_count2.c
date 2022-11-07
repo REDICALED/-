@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include "libft.h"
 
 int	count_6(t_global *global, int i)
 {

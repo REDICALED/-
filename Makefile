@@ -6,7 +6,7 @@
 #    By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/30 08:53:03 by jinhokim          #+#    #+#              #
-#    Updated: 2022/11/02 15:13:42 by jinhokim         ###   ########.fr        #
+#    Updated: 2022/11/07 21:16:46 by jinhokim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,13 +19,11 @@ LIB_DIR	:= ./libft
 
 SRC = main.c \
 		utils.c \
+		tokenize.c \
 		tokenize_count.c \
 		tokenize_count2.c \
-		tokenize_util.c \
 		hoo.c \
-
-
-
+		hoo_here_doc.c \
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror

@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include "libft.h"
 
 int	count_1(t_global *global, int i)
 {
@@ -76,7 +75,6 @@ int	count_5(t_global *global, int *i)
 		if (flag == 0 && (ft_strchr("\'<>\" |'\0'", global->line[*i]) == NULL))
 		{
 			global->tail->str = ft_strjoin(global->tail->str, global->line[*i]);
-			printf("len: %d\n", (int)ft_strlen(global->tail->str));
 			(*i)++;
 		}
 		return (1);

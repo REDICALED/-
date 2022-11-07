@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 08:53:27 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/06 23:20:02 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/07 21:20:22 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ typedef struct s_node
 
 typedef struct s_p_mom
 {
-	int 	pipe_error;
-	int 	pipe_func;
+	int		pipe_error;
+	int		pipe_func;
 	t_node	*head;
 	t_node	*tail;
 }				t_p_mom;
@@ -57,7 +57,7 @@ typedef struct s_p_mom
 typedef struct s_global
 {
 	int			p_count;
-	t_p_mom 	*p_arr;
+	t_p_mom		*p_arr;
 	char		*line;
 	t_node		*head;
 	t_node		*tail;
@@ -80,15 +80,21 @@ int		count_9(t_global *global, int i);
 int		is_space(char *line);
 void	free_global(t_global *global);
 void	ft_print_node(t_node *head);
+void	ft_print_mom(t_global *global);
 
-//tokenize_util.c
+//tokenize.c
 void	add_node(t_global *global, t_token token, char c);
 void	init_global(t_global *global, char *line);
 void	tokenize(char *line, t_global *global);
 
 //hoo.c
+void	pipe_mom_init(t_global *global);
+void	hoo_init(t_global *global);
+void	hoo_token_check_loop(t_node *node);
+void	hoo_token_check(t_global *global);
 void	hoo(t_global *global);
-void 	ft_print_mom(t_global *global);
 
+//hoo_here_doc.c
+void	hoo_here_doc(t_node *node);
 
 #endif
