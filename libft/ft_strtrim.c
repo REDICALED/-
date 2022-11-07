@@ -31,7 +31,7 @@ size_t	len_count(char const *s1, char const *set)
 	return (len);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char *s1, char *set)
 {
 	char	*ans;
 	size_t	len;
@@ -47,5 +47,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (s1[i] != '\0' && ft_strchr(set, s1[i]) != 0)
 		i++;
 	ft_strlcpy(ans, s1 + i, len + 1);
+	free(s1);
 	return (ans);
 }

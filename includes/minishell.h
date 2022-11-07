@@ -24,6 +24,8 @@
 typedef enum s_token
 {
 	string,
+	built_in,
+	func,
 	space,
 	dollar,
 	s_quote,
@@ -44,12 +46,21 @@ typedef struct s_node
 	struct s_node	*next;
 }	t_node;
 
-typedef struct s_global
+typedef struct s_p_mom
 {
-	int		len;
-	char	*line;
+	int 	got_error;
+	int 	got_func;
 	t_node	*head;
 	t_node	*tail;
+}				t_p_mom;
+
+typedef struct s_global
+{
+	int			p_count;
+	t_p_mom 	*p_arr;
+	char		*line;
+	t_node		*head;
+	t_node		*tail;
 }				t_global;
 
 //tokenize_util.c
@@ -74,5 +85,10 @@ void	ft_print_node(t_node *head);
 void	add_node(t_global *global, t_token token, char c);
 void	init_global(t_global *global, char *line);
 void	tokenize(char *line, t_global *global);
+
+//hoo.c
+void	hoo(t_global *global);
+void 	ft_print_mom(t_global *global);
+
 
 #endif

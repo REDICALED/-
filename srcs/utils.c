@@ -57,3 +57,24 @@ void 	ft_print_node(t_node *head)
 		i++;
 	}
 }
+
+void 	ft_print_mom(t_global *global)
+{
+	int		i;
+	t_node	*node;
+	char	token_li[11][10] = {"string", "space", "dollar", "s_quote", "d_quote", "read_in", \
+							"read_in2", "read_out", "read_out2", "e_pipe", "e_error"};
+	
+	i = -1;
+	while (++i <= global->p_count)
+	{
+		node = global->p_arr[i].head;
+		while (node && node->token != e_pipe)
+		{
+			printf("i: %d, token: %s, str: %s\n", i, token_li[node->token], node->str);
+			node = node->next;
+		}
+		printf("i: %d, token: %s, str: %s\n", i, token_li[node->token], node->str);
+		node = node->next;
+	}
+}

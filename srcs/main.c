@@ -23,13 +23,16 @@ int main(int argc, char **argv, char **envp)
     while (42)
     {
         line = readline("minishell $ ");
+		line = ft_strtrim(line, " ");
         // parsing start
 		if (*line)
         {
             tokenize(line, &global);
+			hoo(&global);
             free_global(&global);
         }
         free(line);
     }
     return (0);
 }
+

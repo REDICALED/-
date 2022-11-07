@@ -21,7 +21,6 @@ void	init_global(t_global *global, char *line)
 {
 	t_node	*node;
 	
-	global->len = (int)ft_strlen(line);
 	global->line = line;
 	node = (t_node *)malloc(sizeof(t_node));
 	node->token = -1;
@@ -29,6 +28,7 @@ void	init_global(t_global *global, char *line)
 	node->prev = NULL;
 	global->head = node;
 	global->tail = node;
+	global->p_count = 0;
 }
 
 void    tokenize(char *line, t_global *global)
@@ -69,5 +69,4 @@ void    tokenize(char *line, t_global *global)
 		else if (count_9(global, i))
 			i++;
 	}
-	ft_print_node(global->head);
 }

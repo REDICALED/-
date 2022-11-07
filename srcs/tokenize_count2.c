@@ -10,7 +10,10 @@ int	count_6(t_global *global, int i)
 		if (global->line[i] == '>')
 			add_node(global, read_out, '>');
 		if (global->line[i] == '|')
+		{
 			add_node(global, e_pipe, '|');
+			global->p_count ++;
+		}
 		return (1);
 	}
 	return (0);
