@@ -48,8 +48,8 @@ typedef struct s_node
 
 typedef struct s_p_mom
 {
-	int 	got_error;
-	int 	got_func;
+	int 	pipe_error;
+	int 	pipe_func;
 	t_node	*head;
 	t_node	*tail;
 }				t_p_mom;
