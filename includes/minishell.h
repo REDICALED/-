@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/08 22:40:12 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/09 00:13:30 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <errno.h>
 # include <fcntl.h>
 # include "libft.h"
+
+int	g_exit_code;
 
 typedef enum s_token
 {
@@ -71,9 +73,9 @@ int		count_1(t_global *global, int i);
 int		count_2(t_global *global, int i);
 int		count_3(t_global *global, int *i);
 int		count_4(t_global *global, int *i);
-int		count_5(t_global *global, int *i);
 
 //tokenize_util2.c
+int		count_5(t_global *global, int *i);
 int		count_6(t_global *global, int i);
 int		count_7(t_global *global, int i);
 int		count_8(t_global *global, int i);
@@ -91,11 +93,6 @@ void	add_node(t_global *global, t_token token, char c);
 void	tokenize(char *line, t_global *global);
 
 //hoo.c
-void	pipe_mom_init(t_global *global);
-void	hoo_init(t_global *global);
-
-//void	hoo_token_check_loop(t_node *node);
-void	hoo_token_check(t_global *global);
 void	hoo(t_global *global);
 
 //hoo_here_doc.c

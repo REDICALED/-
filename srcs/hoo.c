@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	pipe_mom_init(t_global *global)
+static void	pipe_mom_init(t_global *global)
 {
 	int		i;
 	t_node	*node;
@@ -28,7 +28,7 @@ void	pipe_mom_init(t_global *global)
 	}
 }
 
-void	hoo_init(t_global *global)
+static void	hoo_init(t_global *global)
 {
 	t_node	*tmp;
 
@@ -40,7 +40,6 @@ void	hoo_init(t_global *global)
 	pipe_mom_init(global);
 }
 
-//void	hoo_token_check_loop(t_node *node)
 static void	hoo_token_check_loop(t_p_mom *p_mom, t_global *global)
 {
 	t_node	*node;
@@ -52,7 +51,7 @@ static void	hoo_token_check_loop(t_p_mom *p_mom, t_global *global)
 		return ;
 	}
 	// ERROR 명세: e_error 토큰이 들어있는 노드를 방문할 시, 그 node의 str를 에러 메시지로 전해준다.
-	while (node && node != p_mom->tail)
+	while (node && node->prev != p_mom->tail)
 	{
 		//	1. here_doc 뒤에 d_quote, string, dollar -> s_quote로 변환 (해석을 안하므로)
 		//	2. 오퍼레이터가 나오는지
@@ -90,35 +89,19 @@ static void	hoo_token_check_loop(t_p_mom *p_mom, t_global *global)
 	}
 }
 
-void	hoo_token_check(t_global *global)
+static void	hoo_token_check(t_global *global)
 {
 	int		i;
 
 	i = -1;
 	while (++i <= global->p_count)
-	{
 		hoo_token_check_loop(&(global->p_arr[i]), global);
-		/*
-		node = global->p_arr[i].head;
-		while (node->next && node->token != e_pipe)
-		{
-			hoo_token_check_loop(node);
-			node = node->next;
-		}
-		node = node->next;
-		if (node == NULL)
-			break ;
-		*/
-	}
 }
 
 /*
 파이프 단위의 에러도 전체 에러와 같이 봄. (하지만 히어독은 실행함)
-
 모든 인풋 리다이렉션, 히어독은 가장 마지막에 나온 것을 인풋으로 한다. dup2로 덮어씌워짐
-
 히어독은 tmp에 파일 만들어서 덮어쓰고, 나중에 open 후 dup2 로 가져온다.
-
 */
 void	hoo(t_global *global)
 {
