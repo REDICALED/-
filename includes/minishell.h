@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/30 08:53:27 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/08 20:12:31jinhokim         ###   ########.fr       */
+/*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
+/*   Updated: 2022/11/08 22:40:12 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		is_space(char *line);
 void	free_global(t_global *global);
 void	ft_print_node(t_node *head);
 void	ft_print_mom(t_global *global);
-char 	**copy_envp(char **envp);
+char	**copy_envp(char **envp);
 
 //tokenize.c
 void	add_node(t_global *global, t_token token, char c);

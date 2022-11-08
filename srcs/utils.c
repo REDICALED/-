@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 09:00:35 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/08 21:27:32 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/08 23:03:46 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,10 @@ char	**copy_envp(char **envp)
 	i = -1;
 	while (envp[++i])
 		;
-	cp_envp = (char **)malloc(sizeof(char *) * i);
+	cp_envp = (char **)malloc(sizeof(char *) * (i + 1));
 	i = -1;
 	while (envp[++i])
-	{
-		cp_envp[i] = (char *)malloc(sizeof(char) * ft_strlen(envp[i]));
 		cp_envp[i] = ft_strdup(envp[i]);
-	}
+	cp_envp[i] = NULL;
 	return (cp_envp);
 }

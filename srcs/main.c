@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 08:54:21 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/08 21:26:42 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/08 23:04:47 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
 	t_global	global;
+	int			i;
 
 	(void)argc;
 	(void)argv;
@@ -36,5 +37,9 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free(line);
 	}
+	i = -1;
+	while (global.cp_envp[++i])
+		free(global.cp_envp[i]);
+	free(global.cp_envp);
 	return (0);
 }
