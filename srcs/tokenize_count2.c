@@ -1,8 +1,38 @@
 #include "minishell.h"
 
+int	count_5(t_global *global, int *i)
+{
+	int	flag;
+
+	flag = 0;
+	if (global->line[*i] == '$')
+	{
+		add_node(global, dollar, '$');
+		(*i)++;
+		if (global->line[*i] == '?')
+		{
+			global->tail->str = ft_strjoin(global->tail->str, \
+											global->line[(*i)++]);
+			return (1);
+		}
+		while (ft_isalnum(global->line[*i]) != 0 || global->line[*i] == '_')
+		{
+			global->tail->str = ft_strjoin(global->tail->str, \
+											global->line[(*i)++]);
+			flag = 1;
+		}
+		if (flag == 0 && (ft_strchr("\'<>\" |'\0'", global->line[*i]) == NULL))
+			global->tail->str = ft_strjoin(global->tail->str, \
+											global->line[(*i)++]);
+		return (1);
+	}
+	return (0);
+}
+
 int	count_6(t_global *global, int i)
 {
-	if (global->line[i] == '<' || global->line[i] == '>' || global->line[i] == '|')
+	if (global->line[i] == '<' || global->line[i] == '>' || \
+			global->line[i] == '|')
 	{
 		if (global->line[i] == '<')
 			add_node(global, read_in, '<');

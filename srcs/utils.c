@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 09:00:35 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/08 15:22:26 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/08 21:27:32 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,32 @@ void	free_global(t_global *global)
 	free(global->p_arr);
 }
 
-void 	ft_print_node(t_node *head)
+void	ft_print_node(t_node *head)
 {
 	t_node	*node;
-	char	token_li[14][10] = {"string", "built_in", "func", "space", "dollar", "s_quote", "d_quote", "read_in", \
-							"read_in2", "read_out", "read_out2", "e_pipe", "e_error", "op_crash"};
+	char	token_li[13][10] = {"string", "built_in", "func", "space", "dollar", \
+								"s_quote", "d_quote", "read_in", "read_in2", \
+								"read_out", "read_out2", "e_pipe", "e_error"};
 	int		i;
 
 	node = head;
 	i = 0;
 	while (node)
 	{
-		printf("i: %d, token: %s, str: %s\n", i, token_li[node->token], node->str);
+		printf("i: %d, token: %s, str: %s\n", i, \
+						token_li[node->token], node->str);
 		node = node->next;
 		i++;
 	}
 }
 
-void 	ft_print_mom(t_global *global)
+void	ft_print_mom(t_global *global)
 {
 	int		i;
-	//t_node	*node;
 	t_p_mom	tmp;
-	char	token_li[14][10] = {"string", "built_in", "func", "space", "dollar", "s_quote", "d_quote", "read_in", \
-							"read_in2", "read_out", "read_out2", "e_pipe", "e_error", "op_crash"};
-	
+	char	token_li[13][10] = {"string", "built_in", "func", "space", "dollar", \
+								"s_quote", "d_quote", "read_in", "read_in2", \
+								"read_out", "read_out2", "e_pipe", "e_error"};
 	/*
 	i = -1;
 	while (++i <= global->p_count)
@@ -94,4 +95,22 @@ void 	ft_print_mom(t_global *global)
 			printf("head: %s --- tail: %s --- error: %d --- func: %d\n", \
 					NULL, NULL, tmp.pipe_error, tmp.pipe_func);
 	}
+}
+
+char	**copy_envp(char **envp)
+{
+	int		i;
+	char	**cp_envp;
+
+	i = -1;
+	while (envp[++i])
+		;
+	cp_envp = (char **)malloc(sizeof(char *) * i);
+	i = -1;
+	while (envp[++i])
+	{
+		cp_envp[i] = (char *)malloc(sizeof(char) * ft_strlen(envp[i]));
+		cp_envp[i] = ft_strdup(envp[i]);
+	}
+	return (cp_envp);
 }

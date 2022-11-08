@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 08:53:27 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/08 15:22:09 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/08 20:12:31jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <errno.h>
+# include <fcntl.h>
 # include "libft.h"
 
 typedef enum s_token
@@ -35,8 +36,7 @@ typedef enum s_token
 	read_out,
 	read_out2,
 	e_pipe,
-	e_error,
-	op_crash
+	e_error
 }		t_token;
 
 typedef struct s_node
@@ -58,6 +58,7 @@ typedef struct s_p_mom
 
 typedef struct s_global
 {
+	char		**cp_envp;
 	int			p_count;
 	t_p_mom		*p_arr;
 	char		*line;
@@ -83,21 +84,24 @@ int		is_space(char *line);
 void	free_global(t_global *global);
 void	ft_print_node(t_node *head);
 void	ft_print_mom(t_global *global);
+char 	**copy_envp(char **envp);
 
 //tokenize.c
 void	add_node(t_global *global, t_token token, char c);
-void	init_global(t_global *global, char *line);
 void	tokenize(char *line, t_global *global);
 
 //hoo.c
 void	pipe_mom_init(t_global *global);
 void	hoo_init(t_global *global);
+
 //void	hoo_token_check_loop(t_node *node);
-void	hoo_token_check_loop(t_p_mom *p_mom);
 void	hoo_token_check(t_global *global);
 void	hoo(t_global *global);
 
 //hoo_here_doc.c
 void	hoo_here_doc(t_node *node);
+
+//hoo_dollar.c
+void	hoo_dollar(t_node *node, t_global *global);
 
 #endif

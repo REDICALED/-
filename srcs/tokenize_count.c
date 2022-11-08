@@ -28,10 +28,33 @@ int	count_2(t_global *global, int i)
 	return (0);
 }
 
+static int	count_4_check(t_global *global, int *i)
+{
+	int	j;
+
+	j = 0;
+	while (42)
+	{
+		++j;
+		if (global->line[j + (*i)] == 0 || \
+			global->line[j + (*i)] == '|')
+		{
+			add_node(global, e_error, global->line[(*i)]);
+			(*i) = (*i) + j;
+			return (1);
+		}
+		if (global->line[j + (*i)] == global->line[(*i)])
+			break ;
+	}
+	return (0);
+}
+
 int	count_4(t_global *global, int *i)
 {
 	if (global->line[*i] == '\'')
 	{
+		if (count_4_check(global, i) == 1)
+			return (1);
 		add_node(global, s_quote, 0);
 		while (global->line[++(*i)] != '\'')
 			global->tail->str = ft_strjoin(global->tail->str, global->line[*i]);
@@ -40,41 +63,12 @@ int	count_4(t_global *global, int *i)
 	}
 	else if (global->line[*i] == '\"')
 	{
+		if (count_4_check(global, i) == 1)
+			return (1);
 		add_node(global, d_quote, 0);
 		while (global->line[++(*i)] != '\"')
 			global->tail->str = ft_strjoin(global->tail->str, global->line[*i]);
 		(*i)++;
-		return (1);
-	}
-	return (0);
-}
-
-int	count_5(t_global *global, int *i)
-{
-	int	flag;
-
-	flag = 0;
-	if (global->line[*i] == '$')
-	{
-		add_node(global, dollar, '$');
-		(*i)++;
-		if (global->line[*i] == '?')
-		{
-			global->tail->str = ft_strjoin(global->tail->str, global->line[*i]);
-			(*i)++;
-			return (1);
-		}
-		while (ft_isalnum(global->line[*i]) != 0 || global->line[*i] == '_')
-		{
-			global->tail->str = ft_strjoin(global->tail->str, global->line[*i]);
-			(*i)++;
-			flag = 1;
-		}
-		if (flag == 0 && (ft_strchr("\'<>\" |'\0'", global->line[*i]) == NULL))
-		{
-			global->tail->str = ft_strjoin(global->tail->str, global->line[*i]);
-			(*i)++;
-		}
 		return (1);
 	}
 	return (0);

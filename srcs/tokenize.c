@@ -4,7 +4,7 @@ void	add_node(t_global *global, t_token token, char c)
 {
 	t_node	*node;
 	char	*tmp;
-		
+
 	node = (t_node *)malloc(sizeof(t_node));
 	tmp = malloc(sizeof(char) + 1);
 	tmp[0] = c;
@@ -17,10 +17,10 @@ void	add_node(t_global *global, t_token token, char c)
 	global->tail = node;
 }
 
-void	init_global(t_global *global, char *line)
+static void	init_global(t_global *global, char *line)
 {
 	t_node	*node;
-	
+
 	global->line = line;
 	node = (t_node *)malloc(sizeof(t_node));
 	node->token = -1;
@@ -31,10 +31,10 @@ void	init_global(t_global *global, char *line)
 	global->p_count = 0;
 }
 
-void    tokenize(char *line, t_global *global)
+void	tokenize(char *line, t_global *global)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	init_global(global, line);
 	while (1)
