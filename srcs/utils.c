@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 09:00:35 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/07 21:14:05 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/08 15:22:26 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	free_global(t_global *global)
 void 	ft_print_node(t_node *head)
 {
 	t_node	*node;
-	char	token_li[13][10] = {"string", "built_in", "func", "space", "dollar", "s_quote", "d_quote", "read_in", \
-							"read_in2", "read_out", "read_out2", "e_pipe", "e_error"};
+	char	token_li[14][10] = {"string", "built_in", "func", "space", "dollar", "s_quote", "d_quote", "read_in", \
+							"read_in2", "read_out", "read_out2", "e_pipe", "e_error", "op_crash"};
 	int		i;
 
 	node = head;
@@ -63,8 +63,8 @@ void 	ft_print_mom(t_global *global)
 	int		i;
 	//t_node	*node;
 	t_p_mom	tmp;
-	char	token_li[13][10] = {"string", "built_in", "func", "space", "dollar", "s_quote", "d_quote", "read_in", \
-							"read_in2", "read_out", "read_out2", "e_pipe", "e_error"};
+	char	token_li[14][10] = {"string", "built_in", "func", "space", "dollar", "s_quote", "d_quote", "read_in", \
+							"read_in2", "read_out", "read_out2", "e_pipe", "e_error", "op_crash"};
 	
 	/*
 	i = -1;

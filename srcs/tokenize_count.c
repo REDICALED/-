@@ -32,19 +32,17 @@ int	count_4(t_global *global, int *i)
 {
 	if (global->line[*i] == '\'')
 	{
-		add_node(global, s_quote, '\'');
+		add_node(global, s_quote, 0);
 		while (global->line[++(*i)] != '\'')
 			global->tail->str = ft_strjoin(global->tail->str, global->line[*i]);
-		global->tail->str = ft_strjoin(global->tail->str, global->line[*i]);
 		(*i)++;
 		return (1);
 	}
 	else if (global->line[*i] == '\"')
 	{
-		add_node(global, d_quote, '\"');
+		add_node(global, d_quote, 0);
 		while (global->line[++(*i)] != '\"')
 			global->tail->str = ft_strjoin(global->tail->str, global->line[*i]);
-		global->tail->str = ft_strjoin(global->tail->str, global->line[*i]);
 		(*i)++;
 		return (1);
 	}

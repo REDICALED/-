@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 08:53:27 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/07 21:20:22 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/08 15:22:09 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,15 @@ typedef enum s_token
 	read_out,
 	read_out2,
 	e_pipe,
-	e_error
+	e_error,
+	op_crash
 }		t_token;
 
 typedef struct s_node
 {
 	char			*str;
 	t_token			token;
+	t_token			error_token;
 	struct s_node	*prev;
 	struct s_node	*next;
 }	t_node;
@@ -90,7 +92,8 @@ void	tokenize(char *line, t_global *global);
 //hoo.c
 void	pipe_mom_init(t_global *global);
 void	hoo_init(t_global *global);
-void	hoo_token_check_loop(t_node *node);
+//void	hoo_token_check_loop(t_node *node);
+void	hoo_token_check_loop(t_p_mom *p_mom);
 void	hoo_token_check(t_global *global);
 void	hoo(t_global *global);
 
