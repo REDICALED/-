@@ -22,15 +22,15 @@ static void	here_doc(t_node *node, t_global *global)
 	while (42)
 	{
 		tmp_line = readline("heredoc> ");
-		if (ft_strncmp(line, node->str, ft_strlen(node->str) + 1) == 0)
+		if (ft_strncmp(tmp_line, node->str, ft_strlen(node->str) + 1) == 0)
 		{
 			free(tmp_line);
 			break ;
 		}
 		line = interpret_double(tmp_line, global->cp_envp);
-		free(tmp_line);
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
+		free(tmp_line);
 		free(line);
 	}
 	free(node->str);
@@ -38,33 +38,6 @@ static void	here_doc(t_node *node, t_global *global)
 	node->token = string;
 	close(fd);
 }
-
-/*
-void	hoo_here_doc(t_node *node)
-{
-	node = node->next;
-	if (node == NULL)
-		node->token = e_error;
-	else
-	{
-		if (node->token == space)
-		{
-			node = node->next;
-			if (node == NULL)
-			{
-				node->prev->prev->token = e_error;
-				return ;
-			}
-		}
-		if (here_doc_check(node))
-			return ;
-		node->prev->token = read_in;
-		if (node->token == string || node->token == dollar || \
-			node->token == d_quote || node->token == s_quote)
-			here_doc(node);
-	}
-}
-*/
 
 void	hoo_here_doc(t_node *node, t_global *global)
 {

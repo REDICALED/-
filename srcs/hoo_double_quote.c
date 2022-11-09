@@ -43,13 +43,11 @@ char	*interpret_double(char *str, char **cp_envp)
 		}
 		else
 			res = ft_strjoin(res, str[i++]);
-		printf("res: %s, str_len: %d\n", res, (int)ft_strlen(res));
 	}
 	return (res);
 }
 
-// $? $USER $abc "$? $USER $_ $$$$ $ $?$? string"
-void    hoo_double_quote(t_node *node, t_global *global)
+void	hoo_double_quote(t_node *node, t_global *global)
 {
 	char	*res;
 
@@ -57,7 +55,7 @@ void    hoo_double_quote(t_node *node, t_global *global)
 	printf("str: %s, str_len: %d\n", node->str, (int)ft_strlen(node->str));
 	node->token = string;
 	res = interpret_double(node->str, global->cp_envp);
-    free(node->str);
+	free(node->str);
 	node->str = res;
 	printf("===  double quote end  ===\n");
 	printf("str: %s, str_len: %d\n\n", node->str, (int)ft_strlen(node->str));

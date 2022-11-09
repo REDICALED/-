@@ -57,22 +57,22 @@ static int	hoo_token_check_loop(t_p_mom *p_mom, t_global *global)
 		//2. 다음 노드가 공백인데, 공백 다음 노드가 NULL이면 error
 		//3. 공백 있으면 제거 후, 공백 다음 노드와 현재 노드를 이어줌
 		//4. 다음 노드가 오퍼레이터면 error
-		//5. here_doc 시작 -> /tmp/here_doc에 내용 저장
-		//6. here_doc 안에 내용을 해석할지는 자유
-		//7. read_in2 토큰을 read_in으로, LIMITER 노드의 토근을 string으로 변경
+		//5. here_doc 시작 -> /tmp/here_doc에 해석된 내용을 해석 저장
+		//6. read_in2 토큰을 read_in으로, LIMITER 노드의 토근을 string으로 변경
 		if (node->token == read_in2)
 			hoo_here_doc(node, global);
-		//1. 토큰을 string을 변경 -> 이건 무조건임
+		//1. 토큰을 string을 변경
 		//2. 그냥 $ 하나면 넘어가기
 		//3. $?의 경우 g_exit_code로 변경
 		//4. 있는 환경변수의 경우 해석한 문자열로 변경
 		//5. 없는 환경변수의 경우 빈 문자열로 변경
 		if (node->token == dollar)
 			hoo_dollar(node, global);
-		// single quote 일 때 하는게 없다. 토큰을 string으로 변경
+		//1. single quote 일 때 하는게 없다. 토큰을 string으로 변경
 		if (node->token == s_quote)
 			node->token = string;
-		//1. 해석할 내용이 있다면 싹다 해석해주기
+		//1. 문자열 안에 해석할 내용이 있다면 싹다 해석
+		//2. 토큰을 string을 변경
 		if (node->token == d_quote)
 			hoo_double_quote(node, global);
 		/*
