@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/09 00:13:30 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/10 05:24:13 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,15 @@ void	tokenize(char *line, t_global *global);
 void	hoo(t_global *global);
 
 //hoo_here_doc.c
-void	hoo_here_doc(t_node *node);
+void	hoo_here_doc(t_node *node, t_global *global);
 
 //hoo_dollar.c
+char	**env_split(char *str);
+char	*find_env_value(char *str, char **cp_envp);
 void	hoo_dollar(t_node *node, t_global *global);
+
+//hoo_double_quote.c
+char	*interpret_double(char *str, char **cp_envp);
+void	hoo_double_quote(t_node *node, t_global *global);
 
 #endif

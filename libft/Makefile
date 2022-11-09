@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: byeonkim <byeonkim.42seoul.kr>             +#+  +:+       +#+         #
+#    By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 17:57:03 by byeonkim          #+#    #+#              #
-#    Updated: 2022/08/17 19:29:05 by byeonkim         ###   ########.fr        #
+#    Updated: 2022/11/10 03:14:00 by jinhokim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS = 	ft_isalnum.c \
 		ft_calloc.c \
 		ft_substr.c \
 		ft_strjoin.c \
+		ft_strjoin2.c \
 		ft_strtrim.c \
 		ft_split.c \
 		ft_itoa.c \

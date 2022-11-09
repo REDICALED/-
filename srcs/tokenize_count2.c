@@ -7,7 +7,7 @@ int	count_5(t_global *global, int *i)
 	flag = 0;
 	if (global->line[*i] == '$')
 	{
-		add_node(global, dollar, 0);
+		add_node(global, dollar, '$');
 		(*i)++;
 		if (global->line[*i] == '?')
 		{

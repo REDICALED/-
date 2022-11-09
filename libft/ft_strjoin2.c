@@ -1,45 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 19:17:24 by byeonkim          #+#    #+#             */
-/*   Updated: 2022/11/10 03:14:01 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/10 04:57:11 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h" //malloc, strlen
 
-void	be0(int *i, int *j)
+char	*ft_strjoin2(char *s1, char *s2)
 {
-	*i = 0;
-	*j = 0;
-}
-
-char	*ft_strjoin(char *s1, char s2)
-{
+	char	*str;
 	int		i;
 	int		j;
-	size_t	len;
-	char	*ans;
+	int		s1_len;
+	int		s2_len;
 
+	i = 0;
+	j = 0;
 	if (!s1 || !s2)
 		return (0);
-	len = ft_strlen(s1) + 1;
-	ans = (char *)malloc(sizeof(*s1) * (len + 1));
-	if (!ans)
+	s1_len = (int)ft_strlen(s1);
+	s2_len = (int)ft_strlen(s2);
+	str = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
+	if (!(str))
 		return (0);
-	be0(&i, &j);
-	while (*(s1 + i) != '\0')
+	while (i < s1_len)
 	{
-		*(ans + i) = *(s1 + i);
+		str[i] = s1[i];
 		i++;
 	}
-	*(ans + i) = s2;
-	i++;
-	*(ans + i) = '\0';
+	while (j < s2_len)
+		str[i++] = s2[j++];
+	str[i] = '\0';
 	free(s1);
-	return (ans);
+	return (str);
 }

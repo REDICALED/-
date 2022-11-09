@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byeonkim <byeonkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 01:44:55 by byeonkim          #+#    #+#             */
-/*   Updated: 2022/04/18 21:26:28 by byeonkim         ###   ########.fr       */
+/*   Updated: 2022/11/10 03:13:37 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char *s1, char s2);
+char	*ft_strjoin2(char *s1, char *s2);
 char	*ft_strtrim(char *s1, char *set);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);

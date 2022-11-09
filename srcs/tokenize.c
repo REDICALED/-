@@ -6,9 +6,9 @@ void	add_node(t_global *global, t_token token, char c)
 	char	*tmp;
 
 	node = (t_node *)malloc(sizeof(t_node));
-	tmp = malloc(sizeof(char) + 1);
+	tmp = malloc(sizeof(char) * 2);
 	tmp[0] = c;
-	tmp[1] = 0;
+	tmp[1] = '\0';
 	node->str = tmp;
 	node->token = token;
 	node->next = NULL;

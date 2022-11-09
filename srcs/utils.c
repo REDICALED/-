@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 09:00:35 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/08 23:23:49 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/09 23:04:59 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	free_global(t_global *global)
 	while (node)
 	{
 		tmp = node;
-		node = node->next;
 		free(tmp->str);
 		free(tmp);
+		node = node->next;
 	}
 	free(global->p_arr);
 }
@@ -78,7 +78,7 @@ void	ft_print_mom(t_global *global)
 					tmp.pipe_error, tmp.pipe_func);
 		else
 			printf("head: %9s --- tail: %9s --- error: %d --- func: %d\n", \
-					NULL, NULL, tmp.pipe_error, tmp.pipe_func);
+					"NULL", "NULL", tmp.pipe_error, tmp.pipe_func);
 	}
 }
 

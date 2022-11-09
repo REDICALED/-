@@ -40,34 +40,42 @@ static void	hoo_init(t_global *global)
 	pipe_mom_init(global);
 }
 
-static void	hoo_token_check_loop(t_p_mom *p_mom, t_global *global)
+static int	hoo_token_check_loop(t_p_mom *p_mom, t_global *global)
 {
 	t_node	*node;
 
 	node = p_mom->head;
 	if (node == NULL)
 	{
-		printf("에러임\n");
-		return ;
+		printf("p_mom의 head가 NULL인 상황 -> 어떻게 처리할까??\n");
+		return (1);
 	}
 	// ERROR 명세: e_error 토큰이 들어있는 노드를 방문할 시, 그 node의 str를 에러 메시지로 전해준다.
-	while (node && node->prev != p_mom->tail)
+	while (node && node != p_mom->tail->next)
 	{
-		//	1. here_doc 뒤에 d_quote, string, dollar -> s_quote로 변환 (해석을 안하므로)
-		//	2. 오퍼레이터가 나오는지
-		// 	3. /tmp/here_doc 에 임시 쓰기 파일이 저장되어 있음
-		//	4. line 입력 받는 거 $해석 하는 것은 일단 나중에 ㄱㄱ
+		//1. 다음 노드가 NULL이면 error
+		//2. 다음 노드가 공백인데, 공백 다음 노드가 NULL이면 error
+		//3. 공백 있으면 제거 후, 공백 다음 노드와 현재 노드를 이어줌
+		//4. 다음 노드가 오퍼레이터면 error
+		//5. here_doc 시작 -> /tmp/here_doc에 내용 저장
+		//6. here_doc 안에 내용을 해석할지는 자유
+		//7. read_in2 토큰을 read_in으로, LIMITER 노드의 토근을 string으로 변경
 		if (node->token == read_in2)
-			hoo_here_doc(node);
-		// 1. 없는 환경변수의 경우 ""로 변환함
-		// 2. 있는 환경변수의 경우 해석해줌
+			hoo_here_doc(node, global);
+		//1. 토큰을 string을 변경 -> 이건 무조건임
+		//2. 그냥 $ 하나면 넘어가기
+		//3. $?의 경우 g_exit_code로 변경
+		//4. 있는 환경변수의 경우 해석한 문자열로 변경
+		//5. 없는 환경변수의 경우 빈 문자열로 변경
 		if (node->token == dollar)
 			hoo_dollar(node, global);
-		/*
+		// single quote 일 때 하는게 없다. 토큰을 string으로 변경
 		if (node->token == s_quote)
-			a;
+			node->token = string;
+		//1. 해석할 내용이 있다면 싹다 해석해주기
 		if (node->token == d_quote)
-			a;
+			hoo_double_quote(node, global);
+		/*
 		if (node->token == read_in)
 			a;
 		if (node->token == read_out)
@@ -84,9 +92,13 @@ static void	hoo_token_check_loop(t_p_mom *p_mom, t_global *global)
 			a;
 		*/
 		if (node->token == e_error)
+		{
 			printf("---- Error at [-%s-] ----\n", node->str);
+			return (1);
+		}
 		node = node->next;
 	}
+	return (0);
 }
 
 static void	hoo_token_check(t_global *global)
@@ -95,7 +107,10 @@ static void	hoo_token_check(t_global *global)
 
 	i = -1;
 	while (++i <= global->p_count)
-		hoo_token_check_loop(&(global->p_arr[i]), global);
+	{
+		if (hoo_token_check_loop(&(global->p_arr[i]), global))
+			break ;
+	}
 }
 
 /*

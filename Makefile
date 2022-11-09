@@ -6,7 +6,7 @@
 #    By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/30 08:53:03 by jinhokim          #+#    #+#              #
-#    Updated: 2022/11/08 21:31:16 by jinhokim         ###   ########.fr        #
+#    Updated: 2022/11/09 18:09:33 by jinhokim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC = main.c \
 		hoo.c \
 		hoo_here_doc.c \
 		hoo_dollar.c \
+		hoo_double_quote.c \
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
