@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 09:00:35 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/09 23:04:59 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/10 13:14:19 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	ft_print_node(t_node *head)
 	int		i;
 	t_node	*node;
 	char	token_li[13][10] = {"string", "built_in", "func", \
-		"space", "dollar", "s_quote", "d_quote", "read_in", \
-		"read_in2", "read_out", "read_out2", "e_pipe", "e_error"};
+		"space", "dollar", "s_quote", "d_quote", "read_in2", \
+		"read_in", "read_out", "read_out2", "e_pipe", "e_error"};
 
 	node = head;
 	i = 0;
@@ -65,20 +65,16 @@ void	ft_print_mom(t_global *global)
 	int		i;
 	t_p_mom	tmp;
 	char	token_li[13][10] = {"string", "built_in", "func", \
-		"space", "dollar", "s_quote", "d_quote", "read_in", \
-		"read_in2", "read_out", "read_out2", "e_pipe", "e_error"};
+		"space", "dollar", "s_quote", "d_quote", "read_in2", \
+		"read_in", "read_out", "read_out2", "e_pipe", "e_error"};
 
 	i = -1;
 	while (++i <= global->p_count)
 	{
 		tmp = global->p_arr[i];
 		if (tmp.head)
-			printf("head: %9s --- tail: %9s --- error: %d --- func: %d\n", \
-					token_li[tmp.head->token], token_li[tmp.tail->token], \
-					tmp.pipe_error, tmp.pipe_func);
-		else
-			printf("head: %9s --- tail: %9s --- error: %d --- func: %d\n", \
-					"NULL", "NULL", tmp.pipe_error, tmp.pipe_func);
+			printf("head: %9s --- tail: %9s\n", \
+				token_li[tmp.head->token], token_li[tmp.tail->token]);
 	}
 }
 

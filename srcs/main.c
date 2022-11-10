@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/30 08:54:21 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/10 05:51:49 by jinhokim         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 int	g_exit_code = 0;
@@ -52,6 +40,7 @@ int	main(int argc, char **argv, char **envp)
 			free_global(&global);
 		}
 		free(line);
+		break ;
 	}
 	free_cp_envp(&global);
 	return (0);

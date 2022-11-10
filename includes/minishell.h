@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/10 05:24:13 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/10 13:08:59 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef enum s_token
 	dollar,
 	s_quote,
 	d_quote,
-	read_in,
 	read_in2,
+	read_in,
 	read_out,
 	read_out2,
 	e_pipe,
@@ -52,8 +52,6 @@ typedef struct s_node
 
 typedef struct s_p_mom
 {
-	int		pipe_error;
-	int		pipe_func;
 	t_node	*head;
 	t_node	*tail;
 }				t_p_mom;

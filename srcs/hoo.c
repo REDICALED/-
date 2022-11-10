@@ -13,8 +13,6 @@ static void	pipe_mom_init(t_global *global)
 		while (node->next && node->token != e_pipe)
 			node = node->next;
 		global->p_arr[i].tail = node;
-		global->p_arr[i].pipe_error = 0;
-		global->p_arr[i].pipe_func = 0;
 		node = node->next;
 		if (node == NULL)
 			break ;
@@ -23,8 +21,6 @@ static void	pipe_mom_init(t_global *global)
 	{
 		global->p_arr[i].head = NULL;
 		global->p_arr[i].tail = NULL;
-		global->p_arr[i].pipe_error = 1;
-		global->p_arr[i].pipe_func = 0;
 	}
 }
 
@@ -40,16 +36,32 @@ static void	hoo_init(t_global *global)
 	pipe_mom_init(global);
 }
 
-static int	hoo_token_check_loop(t_p_mom *p_mom, t_global *global)
+static void	hoo_etc(t_node *node)
+{
+	if (node->next == NULL || (node->next->token == space && \
+		node->next->next == NULL))
+		node->token = e_error;
+	else
+	{
+		if (node->next->token == space)
+		{
+			node->next = node->next->next;
+			free(node->next->prev->str);
+			free(node->next->prev);
+			node->next->prev = node;
+		}
+		node = node->next;
+		if (node->token >= read_in && node->token <= e_pipe)
+			node->prev->token = e_error;
+	}
+}
+
+//static int	hoo_token_check_loop(t_p_mom *p_mom, t_global *global)
+static int	hoo_loop(t_p_mom *p_mom, t_global *global)
 {
 	t_node	*node;
 
 	node = p_mom->head;
-	if (node == NULL)
-	{
-		printf("p_mom의 head가 NULL인 상황 -> 어떻게 처리할까??\n");
-		return (1);
-	}
 	// ERROR 명세: e_error 토큰이 들어있는 노드를 방문할 시, 그 node의 str를 에러 메시지로 전해준다.
 	while (node && node != p_mom->tail->next)
 	{
@@ -75,25 +87,26 @@ static int	hoo_token_check_loop(t_p_mom *p_mom, t_global *global)
 		//2. 토큰을 string을 변경
 		if (node->token == d_quote)
 			hoo_double_quote(node, global);
+		//1. 다음 노드가 NULL이면 error
+		//2. 다음 노드가 공백인데, 공백 다음 노드가 NULL이면 error
+		//3. 공백 있으면 제거 후, 공백 다음 노드와 현재 노드를 이어줌
+		//4. 다음 노드가 오퍼레이터면 error
+		if (node->token >= read_in && node->token <= e_pipe)
+			hoo_etc(node);
+			//pipe_error 1 올려줌;
 		/*
-		if (node->token == read_in)
-			a;
-		if (node->token == read_out)
-			a;
-		if (node->token == read_out2)
-			a;
-		if (node->token == e_pipe)
-			pipe_error 1 올려줌;
-		1. built in?
+		1. 맨 처음 문자열이 무조건 function임, 뒤에껀 다 argument
 		2. access() 되는가? (그냥 넣기)
 		3. path 붙여가면서 access()
+		4. 없는 함수면 error
 		4. 일반 string
 		if (node->token == string)
-			a;
+			hoo_string(node);
 		*/
 		if (node->token == e_error)
 		{
 			printf("---- Error at [-%s-] ----\n", node->str);
+			printf("후처리 끝\n");
 			return (1);
 		}
 		node = node->next;
@@ -101,6 +114,7 @@ static int	hoo_token_check_loop(t_p_mom *p_mom, t_global *global)
 	return (0);
 }
 
+/*
 static void	hoo_token_check(t_global *global)
 {
 	int		i;
@@ -112,6 +126,7 @@ static void	hoo_token_check(t_global *global)
 			break ;
 	}
 }
+*/
 
 /*
 파이프 단위의 에러도 전체 에러와 같이 봄. (하지만 히어독은 실행함)
@@ -120,6 +135,13 @@ static void	hoo_token_check(t_global *global)
 */
 void	hoo(t_global *global)
 {
+	int	i;
+
 	hoo_init(global);
-	hoo_token_check(global);
+	i = -1;
+	while (++i <= global->p_count)
+	{
+		if (hoo_loop(&(global->p_arr[i]), global))
+			break ;
+	}
 }
