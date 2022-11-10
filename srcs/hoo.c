@@ -43,7 +43,8 @@ static void	hoo_etc(t_node *node)
 		node->token = e_error;
 	else
 	{
-		if (node->next->token == space && node->token == e_pipe)
+		if (node->token == e_pipe && node->next->token == space && \
+				node->next->next == NULL)
 			node->token = e_error;
 		else if (node->next->token == space && node->token != e_pipe)
 		{
@@ -53,7 +54,10 @@ static void	hoo_etc(t_node *node)
 			node->next->prev = node;
 		}
 		node = node->next;
-		if (node->token >= read_in && node->token <= e_pipe)
+		if (node->prev->token == e_pipe && node->token == e_pipe)
+			node->prev->token = e_error;
+		else if (node->prev->token != e_pipe && node->token >= read_in \
+			&& node->token <= e_pipe)
 			node->prev->token = e_error;
 	}
 }
@@ -115,7 +119,7 @@ static int	hoo_loop(t_p_mom *p_mom, t_global *global)
 모든 인풋 리다이렉션, 히어독은 가장 마지막에 나온 것을 인풋으로 한다. dup2로 덮어씌워짐
 히어독은 tmp에 파일 만들어서 덮어쓰고, 나중에 open 후 dup2 로 가져온다.
 */
-void	hoo(t_global *global)
+int	hoo(t_global *global)
 {
 	int	i;
 
@@ -124,9 +128,10 @@ void	hoo(t_global *global)
 	while (++i <= global->p_count)
 	{
 		if (hoo_loop(&(global->p_arr[i]), global))
-			break ;
+			return (1);
 	}
 	i = -1;
 	while (++i <= global->p_count)
 		hoo_space_check(&(global->p_arr[i]));
+	return (0);
 }

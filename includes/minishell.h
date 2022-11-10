@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/10 15:45:27 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/10 18:10:01 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_p_mom
 {
 	t_node	*head;
 	t_node	*tail;
+	int		pipe_error;
 }				t_p_mom;
 
 typedef struct s_global
@@ -91,7 +92,7 @@ void	add_node(t_global *global, t_token token, char c);
 void	tokenize(char *line, t_global *global);
 
 //hoo.c
-void	hoo(t_global *global);
+int		hoo(t_global *global);
 
 //hoo_here_doc.c
 void	hoo_here_doc(t_node *node, t_global *global);
@@ -107,5 +108,9 @@ void	hoo_double_quote(t_node *node, t_global *global);
 
 //hoo_string.c
 void	hoo_string(t_node *node, t_global *global, t_p_mom *p_mom);
+void	hoo_space_check(t_p_mom *p_mom);
+
+//hoo_red.c
+void	redirection(t_global *global);
 
 #endif

@@ -35,7 +35,15 @@ int	main(int argc, char **argv, char **envp)
 			tokenize(line, &global);
 			ft_print_node(global.head->next);
 			printf("--- hoo after ---\n");
-			hoo(&global);
+			if (hoo(&global) == 1)
+			{
+				ft_print_node(global.head);
+				ft_print_mom(&global);
+				free_global(&global);
+				free(line);
+				printf("hoo에서 에러나서 종료됨\n");
+				break ;
+			}
 			ft_print_node(global.head);
 			ft_print_mom(&global);
 			free_global(&global);
@@ -46,3 +54,42 @@ int	main(int argc, char **argv, char **envp)
 	free_cp_envp(&global);
 	return (0);
 }
+
+/*
+pipe_run()
+{
+	pid_t	pid;
+	int		fd[2];
+
+	pipe(fd);
+	pid = fork();
+
+	if (pid == 0)
+	{
+		// 여기서 마지막 read_in 찾기
+		child
+	}
+	else
+	{
+		// 여기서 마지막 read_out, read_out2 찾기
+		return (pid);
+	}
+}
+
+pid_t	*pid_li[pipe_cnt];
+
+i = -1;
+while (++i <= pipe_cnt)
+{
+	pid_li[i] = pipe_run()
+	
+	i = -1;
+	int	status;
+	while (++i <= pipe_cnt)
+	{
+		waitpid(pid_li[i], &status, NULL);
+		if (i == pipe_cnt)
+			g_exit_code = WEXITSTATUS(status);
+	}
+}
+*/
