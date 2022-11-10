@@ -43,7 +43,9 @@ static void	hoo_etc(t_node *node)
 		node->token = e_error;
 	else
 	{
-		if (node->next->token == space)
+		if (node->next->token == space && node->token == e_pipe)
+			node->token = e_error;
+		else if (node->next->token == space && node->token != e_pipe)
 		{
 			node->next = node->next->next;
 			free(node->next->prev->str);
@@ -56,7 +58,6 @@ static void	hoo_etc(t_node *node)
 	}
 }
 
-//static int	hoo_token_check_loop(t_p_mom *p_mom, t_global *global)
 static int	hoo_loop(t_p_mom *p_mom, t_global *global)
 {
 	t_node	*node;
@@ -93,40 +94,21 @@ static int	hoo_loop(t_p_mom *p_mom, t_global *global)
 		//4. 다음 노드가 오퍼레이터면 error
 		if (node->token >= read_in && node->token <= e_pipe)
 			hoo_etc(node);
-			//pipe_error 1 올려줌;
-		/*
-		1. 맨 처음 문자열이 무조건 function임, 뒤에껀 다 argument
-		2. access() 되는가? (그냥 넣기)
-		3. path 붙여가면서 access()
-		4. 없는 함수면 error
-		4. 일반 string
+		//1. 맨 처음 문자열이 무조건 function임, 뒤에껀 다 argument
+		//2. 지금 문자열인데 다음도 문자열이면 병합
+		//3. access() 되는가? (그냥 넣기)
+		//4. path 붙여가면서 access()
 		if (node->token == string)
-			hoo_string(node);
-		*/
+			hoo_string(node, global, p_mom);
 		if (node->token == e_error)
 		{
 			printf("---- Error at [-%s-] ----\n", node->str);
-			printf("후처리 끝\n");
 			return (1);
 		}
 		node = node->next;
 	}
 	return (0);
 }
-
-/*
-static void	hoo_token_check(t_global *global)
-{
-	int		i;
-
-	i = -1;
-	while (++i <= global->p_count)
-	{
-		if (hoo_token_check_loop(&(global->p_arr[i]), global))
-			break ;
-	}
-}
-*/
 
 /*
 파이프 단위의 에러도 전체 에러와 같이 봄. (하지만 히어독은 실행함)
@@ -144,4 +126,7 @@ void	hoo(t_global *global)
 		if (hoo_loop(&(global->p_arr[i]), global))
 			break ;
 	}
+	i = -1;
+	while (++i <= global->p_count)
+		hoo_space_check(&(global->p_arr[i]));
 }

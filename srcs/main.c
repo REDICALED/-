@@ -34,6 +34,7 @@ int	main(int argc, char **argv, char **envp)
 			line = ft_strtrim(line, " ");
 			tokenize(line, &global);
 			ft_print_node(global.head->next);
+			printf("--- hoo after ---\n");
 			hoo(&global);
 			ft_print_node(global.head);
 			ft_print_mom(&global);

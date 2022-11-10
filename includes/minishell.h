@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/10 13:08:59 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/10 15:45:27 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef enum s_token
 	dollar,
 	s_quote,
 	d_quote,
-	read_in2,
 	read_in,
+	read_in2,
 	read_out,
 	read_out2,
 	e_pipe,
@@ -104,5 +104,8 @@ void	hoo_dollar(t_node *node, t_global *global);
 //hoo_double_quote.c
 char	*interpret_double(char *str, char **cp_envp);
 void	hoo_double_quote(t_node *node, t_global *global);
+
+//hoo_string.c
+void	hoo_string(t_node *node, t_global *global, t_p_mom *p_mom);
 
 #endif
