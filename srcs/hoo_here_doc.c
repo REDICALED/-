@@ -12,34 +12,49 @@ static int	here_doc_check(t_node *node)
 	return (0);
 }
 
-static void	here_doc(t_node *node, t_global *global)
+static int	here_doc_write(int fd, t_node *node, t_global *global)
 {
-	int		fd;
 	char	*tmp_line;
 	char	*line;
 
-	fd = open("/tmp/here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	tmp_line = readline("heredoc> ");
+	if (ft_strncmp(tmp_line, node->str, ft_strlen(node->str) + 1) == 0)
+	{
+		free(tmp_line);
+		return (1);
+	}
+	line = interpret_double(tmp_line, global->cp_envp);
+	write(fd, line, ft_strlen(line));
+	write(fd, "\n", 1);
+	free(tmp_line);
+	free(line);
+	return (0);
+}
+
+static void	here_doc(t_node *node, t_global *global, int i)
+{
+	char	*here_doc;
+	char	*idx;
+	char	*path;
+	int		fd;
+
+	here_doc = ft_strdup("/tmp/here_doc_");
+	idx = ft_itoa(i);
+	path = ft_strjoin2(here_doc, idx);
+	free(idx);
+	fd = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	while (42)
 	{
-		tmp_line = readline("heredoc> ");
-		if (ft_strncmp(tmp_line, node->str, ft_strlen(node->str) + 1) == 0)
-		{
-			free(tmp_line);
+		if (here_doc_write(fd, node, global) == 1)
 			break ;
-		}
-		line = interpret_double(tmp_line, global->cp_envp);
-		write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
-		free(tmp_line);
-		free(line);
 	}
 	free(node->str);
-	node->str = ft_strdup("/tmp/here_doc");
+	node->str = path;
 	node->token = string;
 	close(fd);
 }
 
-void	hoo_here_doc(t_node *node, t_global *global)
+void	hoo_here_doc(t_node *node, t_global *global, int i)
 {
 	if (node->next == NULL || (node->next->token == space && \
 			node->next->next == NULL))
@@ -61,6 +76,6 @@ void	hoo_here_doc(t_node *node, t_global *global)
 		node = node->next;
 		if (node->token == string || node->token == dollar || \
 			node->token == d_quote || node->token == s_quote)
-			here_doc(node, global);
+			here_doc(node, global, i);
 	}
 }

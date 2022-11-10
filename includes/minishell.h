@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/10 18:10:01 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/10 21:12:14 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_node
 
 typedef struct s_p_mom
 {
+	int		i;
 	t_node	*head;
 	t_node	*tail;
 	int		pipe_error;
@@ -95,7 +96,7 @@ void	tokenize(char *line, t_global *global);
 int		hoo(t_global *global);
 
 //hoo_here_doc.c
-void	hoo_here_doc(t_node *node, t_global *global);
+void	hoo_here_doc(t_node *node, t_global *global, int i);
 
 //hoo_dollar.c
 char	**env_split(char *str);

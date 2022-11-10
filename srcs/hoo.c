@@ -9,6 +9,7 @@ static void	pipe_mom_init(t_global *global)
 	node = global->head;
 	while (++i <= global->p_count)
 	{
+		global->p_arr[i].i = i;
 		global->p_arr[i].head = node;
 		while (node->next && node->token != e_pipe)
 			node = node->next;
@@ -16,11 +17,6 @@ static void	pipe_mom_init(t_global *global)
 		node = node->next;
 		if (node == NULL)
 			break ;
-	}
-	if (i++ < global->p_count)
-	{
-		global->p_arr[i].head = NULL;
-		global->p_arr[i].tail = NULL;
 	}
 }
 
@@ -77,7 +73,7 @@ static int	hoo_loop(t_p_mom *p_mom, t_global *global)
 		//5. here_doc 시작 -> /tmp/here_doc에 해석된 내용을 해석 저장
 		//6. read_in2 토큰을 read_in으로, LIMITER 노드의 토근을 string으로 변경
 		if (node->token == read_in2)
-			hoo_here_doc(node, global);
+			hoo_here_doc(node, global, p_mom->i);
 		//1. 토큰을 string을 변경
 		//2. 그냥 $ 하나면 넘어가기
 		//3. $?의 경우 g_exit_code로 변경
@@ -122,16 +118,20 @@ static int	hoo_loop(t_p_mom *p_mom, t_global *global)
 int	hoo(t_global *global)
 {
 	int	i;
+	int	error;
 
 	hoo_init(global);
 	i = -1;
+	error = 0;
 	while (++i <= global->p_count)
 	{
 		if (hoo_loop(&(global->p_arr[i]), global))
-			return (1);
+			error = 1;
 	}
 	i = -1;
 	while (++i <= global->p_count)
 		hoo_space_check(&(global->p_arr[i]));
+	if (error == 1)
+		return (1);
 	return (0);
 }

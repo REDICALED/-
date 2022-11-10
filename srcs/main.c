@@ -18,8 +18,14 @@ static void	free_cp_envp(t_global *global)
 	free(global->cp_envp);
 }
 
+void	a(void)
+{
+	system("leaks minishell");
+}
+
 int	main(int argc, char **argv, char **envp)
 {
+	atexit(a);
 	char		*line;
 	t_global	global;
 
