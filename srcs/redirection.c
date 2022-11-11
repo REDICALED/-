@@ -1,12 +1,5 @@
 #include "minishell.h"
 
-/*
-read_in     -> operator와 string을 보고 실행되는 건지 확인.
-				가장 마지막 것만 인풋으로 넣음
-read_out    ->
-read_out2   ->
-*/
-
 static void	input_loop(t_node *node, t_p_mom *p_mom)
 {
 	int		fd;
@@ -52,12 +45,56 @@ static void	output_loop(t_node *node, t_p_mom *p_mom)
 	p_mom->output = fd;
 }
 
+static void remove_redirection(t_global *global)
+{
+    t_node  *node;
+    t_node  *tmp;
+
+    node = global->head;
+	while (node && node != global->tail)
+    {
+		if (node && node->token >= read_in && node->token <= read_out2)
+        {
+            tmp = node->next->next;
+            remove_redirection_util(global, node, tmp);
+            free(node->next->str);
+            free(node->next);
+            free(node->str);
+            free(node);
+            node = tmp;
+        }
+        else
+            node = node->next;
+    }
+}
+
+static void set_redirection(t_global *global)
+{
+	int	    i;
+    int     p;
+    t_node  *node;
+
+    i = 0;
+    p = 0;
+    node = global->head;
+    global->p_arr[0].head = global->head;
+    global->p_arr[global->p_count].tail = global->tail;
+	while (node != global->tail)
+    {
+        if (node->token == e_pipe)
+        {
+            global->p_arr[i].tail = node;
+            global->p_arr[++i].head = node->next;
+        }
+        node = node->next;
+    }
+}
+
 void	redirection(t_global *global)
 {
 	int		i;
     t_node  *node;
 
-	printf("redi start\n");
 	i = -1;
 	while (++i <= global->p_count)
 	{
@@ -68,9 +105,15 @@ void	redirection(t_global *global)
                 input_loop(node, &(global->p_arr[i]));
 			if (node->token == read_out || node->token == read_out2)
                 output_loop(node, &(global->p_arr[i]));
+            
 			if (global->p_arr[i].read_error == 1)
+            {
+                g_exit_code = 1;
                 break ;
+            }
             node = node->next;
         }
 	}
+    remove_redirection(global);
+    set_redirection(global);
 }

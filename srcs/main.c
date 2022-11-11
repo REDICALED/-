@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	g_exit_code = 0;
+int	g_exit_code;
 
 static void	init(int argc, char **argv)
 {
@@ -36,20 +36,20 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("minishell$ ");
 		if (*line)
 		{
+			g_exit_code = 0;
 			add_history(line);
 			line = ft_strtrim(line, " ");
 			tokenize(line, &global);
 			ft_print_node(global.head->next);
 			printf("--- hoo after ---\n");
-			// g_exit_code 처리하기
 			if (hoo(&global) == 1)
 			{
 				ft_print_node(global.head);
 				ft_print_mom(&global);
 				free_global(&global);
 				free(line);
-				printf("hoo에서 에러나서 종료됨\n");
-				break ;
+				printf("g_exit_code: %d\n", g_exit_code);
+				continue ;
 			}
 			redirection(&global);
 			ft_print_node(global.head);
@@ -57,7 +57,7 @@ int	main(int argc, char **argv, char **envp)
 			free_global(&global);
 		}
 		free(line);
-		break ;
+		printf("g_exit_code: %d\n", g_exit_code);
 	}
 	free_cp_envp(&global);
 	return (0);

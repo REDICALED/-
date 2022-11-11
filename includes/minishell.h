@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/11 16:52:33 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/11 19:05:17 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,10 @@ void	hoo_double_quote(t_node *node, t_global *global);
 void	hoo_string(t_node *node, t_global *global, t_p_mom *p_mom);
 void	hoo_space_check(t_p_mom *p_mom);
 
-//hoo_red.c
+//redirection.c
 void	redirection(t_global *global);
+
+//redirection_utils.c
+void    remove_redirection_util(t_global *global, t_node *node, t_node *tmp);
 
 #endif

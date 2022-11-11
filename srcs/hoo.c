@@ -105,7 +105,7 @@ static int	hoo_loop(t_p_mom *p_mom, t_global *global)
 			hoo_string(node, global, p_mom);
 		if (node->token == e_error)
 		{
-			printf("---- Error at [-%s-] ----\n", node->str);
+			g_exit_code = 258;
 			return (1);
 		}
 		node = node->next;

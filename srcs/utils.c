@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 09:00:35 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/11 16:53:21 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/11 19:30:33 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ void	ft_print_mom(t_global *global)
 	while (++i <= global->p_count)
 	{
 		tmp = global->p_arr[i];
-		if (tmp.head)
+		if (tmp.head && tmp.tail)
 		{
-			printf("head: %9s --- tail: %9s\n", \
+			printf("\nhead: %9s --- tail: %9s\n", \
 				token_li[tmp.head->token], token_li[tmp.tail->token]);
-			printf("input_fd: %d --- read_error: %d\n\n", \
+			printf("input_fd: %d --- read_error: %d\n", \
 				tmp.input, tmp.read_error);
 			printf("output_fd: %d --- read_error: %d\n\n", \
 				tmp.output, tmp.read_error);
