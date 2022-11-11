@@ -49,7 +49,8 @@ int	main(int argc, char **argv, char **envp)
 				free_global(&global);
 				free(line);
 				printf("g_exit_code: %d\n", g_exit_code);
-				continue ;
+				//continue ;
+				break ;
 			}
 			redirection(&global);
 			ft_print_node(global.head);
@@ -58,6 +59,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free(line);
 		printf("g_exit_code: %d\n", g_exit_code);
+		break ;
 	}
 	free_cp_envp(&global);
 	return (0);
