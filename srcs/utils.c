@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 09:00:35 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/11 15:34:48 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/11 16:53:21 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ void	ft_print_mom(t_global *global)
 		{
 			printf("head: %9s --- tail: %9s\n", \
 				token_li[tmp.head->token], token_li[tmp.tail->token]);
-			printf("input_fd: %d --- input_error: %d\n\n", \
-				tmp.input, tmp.input_error);
+			printf("input_fd: %d --- read_error: %d\n\n", \
+				tmp.input, tmp.read_error);
+			printf("output_fd: %d --- read_error: %d\n\n", \
+				tmp.output, tmp.read_error);
 		}
 	}
 }

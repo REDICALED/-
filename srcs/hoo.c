@@ -10,9 +10,9 @@ static void	pipe_mom_init(t_global *global)
 	while (++i <= global->p_count)
 	{
 		global->p_arr[i].i = i;
-		global->p_arr[i].input_error = 0;
 		global->p_arr[i].input = -1;
 		global->p_arr[i].output = -1;
+		global->p_arr[i].read_error = 0;
 		global->p_arr[i].head = node;
 		while (node->next && node->token != e_pipe)
 			node = node->next;
