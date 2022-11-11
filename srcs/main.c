@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/12 05:36:04 by jinhokim          #+#    #+#             */
+/*   Updated: 2022/11/12 05:36:05 by jinhokim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	g_exit_code;
@@ -41,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 			line = ft_strtrim(line, " ");
 			tokenize(line, &global);
 			ft_print_node(global.head->next);
-			printf("--- hoo after ---\n");
+			printf("\n----- hoo start -----\n");
 			if (hoo(&global) == 1)
 			{
 				ft_print_node(global.head);
@@ -52,9 +64,15 @@ int	main(int argc, char **argv, char **envp)
 				//continue ;
 				break ;
 			}
+			printf("----- hoo finish -----\n\n");
+			printf("----- redirection start -----\n");
 			redirection(&global);
+			printf("-----  redirection end  -----\n\n");
 			ft_print_node(global.head);
 			ft_print_mom(&global);
+			printf("----- execute start -----\n");
+			execute(&global);
+			printf("-----  execute end  -----\n\n");
 			free_global(&global);
 		}
 		free(line);

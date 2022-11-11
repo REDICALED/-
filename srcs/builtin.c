@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirection_utils.c                                :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/12 05:36:43 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/12 05:37:20 by jinhokim         ###   ########.fr       */
+/*   Created: 2022/11/12 05:35:21 by jinhokim          #+#    #+#             */
+/*   Updated: 2022/11/12 05:35:25 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	remove_redirection_util(t_global *global, t_node *node, t_node *tmp)
+void	run_echo(char **cmd_arr)
 {
-	if (node == global->head && node->next == global->tail)
+	int	i;
+
+	printf("\n--- echo start ---\n");
+	i = 1;
+	if (cmd_arr[i] && ft_strncmp(cmd_arr[1], "-n", 3) == 0)
+		i++;
+	while (cmd_arr[i])
 	{
-		global->head = NULL;
-		global->tail = NULL;
+		if (cmd_arr[i + 1] != NULL)
+			printf("%s ", cmd_arr[i]);
+		else
+			printf("%s", cmd_arr[i]);
+		i++;
 	}
-	else if (node == global->head)
-	{
-		global->head = tmp;
-		tmp->prev = NULL;
-	}
-	else if (node->next == global->tail)
-	{
-		global->tail = node->prev;
-		global->tail->next = NULL;
-	}
-	else
-	{
-		tmp->prev = node->prev;
-		node->prev->next = tmp;
-	}
+	if (cmd_arr[1] == NULL || \
+		(cmd_arr[1] && ft_strncmp(cmd_arr[1], "-n", 3) != 0))
+		printf("\n");
+	printf("--- echo end ---\n\n");
 }
