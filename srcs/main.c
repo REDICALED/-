@@ -41,6 +41,7 @@ int	main(int argc, char **argv, char **envp)
 			tokenize(line, &global);
 			ft_print_node(global.head->next);
 			printf("--- hoo after ---\n");
+			// g_exit_code 처리하기
 			if (hoo(&global) == 1)
 			{
 				ft_print_node(global.head);
@@ -50,6 +51,7 @@ int	main(int argc, char **argv, char **envp)
 				printf("hoo에서 에러나서 종료됨\n");
 				break ;
 			}
+			redirection(&global);
 			ft_print_node(global.head);
 			ft_print_mom(&global);
 			free_global(&global);
@@ -62,7 +64,7 @@ int	main(int argc, char **argv, char **envp)
 }
 
 /*
-pipe_run()
+void	pipe_run()
 {
 	pid_t	pid;
 	int		fd[2];

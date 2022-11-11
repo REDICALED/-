@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/10 21:12:14 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/11 15:35:10 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ typedef struct s_node
 typedef struct s_p_mom
 {
 	int		i;
+	int		input_error;
+	int		input;
+	int		output;
 	t_node	*head;
 	t_node	*tail;
 	int		pipe_error;
