@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:04 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/12 05:36:05 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/12 06:25:43 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	main(int argc, char **argv, char **envp)
 				break ;
 			}
 			printf("----- hoo finish -----\n\n");
+			ft_print_node(global.head);
+			ft_print_mom(&global);
 			printf("----- redirection start -----\n");
 			redirection(&global);
 			printf("-----  redirection end  -----\n\n");

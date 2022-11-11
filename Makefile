@@ -18,6 +18,7 @@ SRC = main.c \
 		redirection.c \
 		redirection_utils.c \
 		builtin.c \
+		builtin_export.c \
 		execute.c \
 
 CC = cc
@@ -142,21 +143,32 @@ re: fclean all
 
 # 3. read_error가 있었다면 -> g_exit_code = 1
 
+
 # --- 4. 실행 ---
-# 1. echo
-# -n 인자가 있는 경우 마지막 띄어쓰기 안 넣엊귀
+# 함수 인자를 잘못 써서 usage: ~ 나오는 경우 -> g_exit_code = 1
+# 없는 명령어의 경우 -> g_exit_code = 127
+
+# 1. echo(with option -n)
+# error: 에러 나는 경우가 없음
+# -n 인자가 있는 경우 마지막 띄어쓰기 안 넣어주기
 # 문자열 사이에 공백 잔뜩있어도 아무 상관 없음 -> 무조건 한 칸씩 띄어쓰기
 
 # 2. cd
 
 # 3. pwd
 
-# 3. pwd
+# 4. export(with no options)
+# error: 에러 나는 경우가 없음
+# env와 다르게 key=value(USER=jinhokim)와 같이 = 으로 매칭이 것들 뿐만 아니라
+# key(export a), key=(export a=)
+# = 없는 cp_envp[i]는 출력 안하기
 
-# 4. export
 
 # 5. unset
 
-# 6. env
+# 6. env(with no options or arguments)
+# error: 인자가 있는 경우 -> g_exit_code = 1
+# env는 key=value(USER=jinhokim)와 같이 = 으로 매칭이 되는 것만 출력함
+# = 없는 cp_envp[i]는 출력 안하기
 
 # 7. exit

@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/12 05:37:59 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/12 06:28:07 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ void	remove_redirection_util(t_global *global, t_node *node, t_node *tmp);
 
 //builtin.c
 void	run_echo(char **cmd_arr);
+void	run_export(char **cmd_arr, t_global *global);
+void	run_env(char **cmd_arr, t_global *global);
 
 //execute.c
 void	execute(t_global *global);
