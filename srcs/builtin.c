@@ -16,7 +16,6 @@ void	run_echo(char **cmd_arr)
 {
 	int	i;
 
-	printf("\n--- echo start ---\n");
 	i = 1;
 	if (cmd_arr[i] && ft_strncmp(cmd_arr[1], "-n", 3) == 0)
 		i++;
@@ -31,30 +30,55 @@ void	run_echo(char **cmd_arr)
 	if (cmd_arr[1] == NULL || \
 		(cmd_arr[1] && ft_strncmp(cmd_arr[1], "-n", 3) != 0))
 		printf("\n");
-	printf("\n---  echo end  ---\n");
 }
 
-static char	*env_strchr(char *s, int c)
+void	run_pwd(void)
 {
-	char	char_c;
+	char	*path;
 
-	char_c = (char)c;
-	while (*(s))
+	path = (char *)malloc(sizeof(char) * 4096);
+	getcwd(path, 4096);
+	printf("%s\n", path);
+	free(path);
+}
+
+static void	env_remove(t_global *global, int j)
+{
+	free(global->cp_envp[j]);
+	while (global->cp_envp[++j])
+		global->cp_envp[j - 1] = global->cp_envp[j];
+	global->cp_envp[j - 1] = NULL;
+}
+
+void	run_unset(char **cmd_arr, t_global *global)
+{
+	int		i;
+	int		j;
+	char	**dict;
+
+	i = 0;
+	while (cmd_arr[++i])
 	{
-		if (*(s) == char_c)
-			return ((char *)(s));
-		s++;
+		j = -1;
+		while (global->cp_envp[++j])
+		{
+			dict = env_split(global->cp_envp[j]);
+			if (dict == NULL)
+			{
+				if (ft_strncmp(cmd_arr[i], global->cp_envp[j], \
+						ft_strlen(global->cp_envp[j]) + 1) == 0)
+					env_remove(global, j);
+			}
+			else if (ft_strncmp(cmd_arr[i], dict[0], ft_strlen(dict[0]) + 1) == 0)
+				env_remove(global, j);
+		}
 	}
-	if (char_c == '\0')
-		return ((char *)s);
-	return (0);
 }
 
 void	run_env(char **cmd_arr, t_global *global)
 {
 	int	i;
 
-	printf("\n--- env start ---\n");
 	if (cmd_arr[1])
 	{
 		ft_putstr_fd("usage: env [with no options or arguments]\n", 2);
@@ -65,8 +89,7 @@ void	run_env(char **cmd_arr, t_global *global)
 	i = -1;
 	while (global->cp_envp[++i])
 	{
-		if (env_strchr(global->cp_envp[i], '='))
+		if (env_strchr(global->cp_envp[i], '=') >= 0)
 			printf("%s\n", global->cp_envp[i]);
 	}
-	printf("\n---  env end  ---\n");
 }

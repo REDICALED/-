@@ -47,7 +47,7 @@ static void	print_export(t_global *global)
 	tmp_envp = sort_envp(global->cp_envp);
 	while (tmp_envp[++i])
 	{
-		if (ft_strchr(tmp_envp[i], '=') == 0)
+		if (env_strchr(tmp_envp[i], '=') == -1)
 			printf("declare -x %s\n", tmp_envp[i]);
 		else
 		{
@@ -95,12 +95,10 @@ static void	append_env(char **cmd_arr, t_global *global)
 
 void	run_export(char **cmd_arr, t_global *global)
 {
-	printf("\n--- export start ---\n");
-	if (cmd_arr[1])
+	if (cmd_arr[1] && global->p_count == 0)
 	{
 		append_env(cmd_arr, global);
 		return ;
 	}
 	print_export(global);
-	printf("\n---  export end  ---\n");
 }

@@ -45,8 +45,12 @@ static void	run_cmd(char **cmd_arr, t_global *global)
 	i = -1;
 	if (ft_strncmp(cmd_arr[0], "echo", 4 + 1) == 0)
 		run_echo(cmd_arr);
+	if (ft_strncmp(cmd_arr[0], "pwd", 3 + 1) == 0)
+		run_pwd();
 	else if (ft_strncmp(cmd_arr[0], "env", 3 + 1) == 0)
 		run_env(cmd_arr, global);
+	else if (ft_strncmp(cmd_arr[0], "unset", 5 + 1) == 0)
+		run_unset(cmd_arr, global);
 	else if (ft_strncmp(cmd_arr[0], "export", 6 + 1) == 0)
 		run_export(cmd_arr, global);
 	while (cmd_arr[++i])
@@ -57,20 +61,22 @@ static void	run_cmd(char **cmd_arr, t_global *global)
 void	execute(t_global *global)
 {
 	int		i;
-	pid_t	pid_li[global->p_count + 1];
+	//pid_t	pid_li[global->p_count + 1];
 	char	**cmd_arr;
 	
 
 	i = 0;
 	if (global->head == NULL)
 		return ;
+	/*
 	if (global->p_count == 0)
 	{
 		i = 0;
 		// single
 		return ;
 	}
-	pid_li[0] = fork();
+	//pid_li[0] = fork();
+	*/
 	while (i <= global->p_count && global->p_arr[i].head)
 	{
 		printf("--- run %d cmd ---\n", i);

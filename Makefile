@@ -145,7 +145,10 @@ re: fclean all
 
 
 # --- 4. 실행 ---
-# 함수 인자를 잘못 써서 usage: ~ 나오는 경우 -> g_exit_code = 1
+# single 커맨드가 아니면 즉 파이프가 있는 경우
+# cd, export, unset 같은 상태가 바뀌는 명령들이 동작을 안함.
+
+# 함수 인자를 잘못 써서 usage: ~a 나오는 경우 -> g_exit_code = 1
 # 없는 명령어의 경우 -> g_exit_code = 127
 
 # 1. echo(with option -n)
@@ -153,14 +156,16 @@ re: fclean all
 # -n 인자가 있는 경우 마지막 띄어쓰기 안 넣어주기
 # 문자열 사이에 공백 잔뜩있어도 아무 상관 없음 -> 무조건 한 칸씩 띄어쓰기
 
-# 2. cd
+# 2. cd(with only a relative or absolute path)
 # error: 인자가 2개 이상 있는 경우 -> g_exit_code = 1
 # 상대 경로 -> cd ../test
 # 절대 경로 -> cd ~/test
+# PWD(현재 경로), OLDPWD(이전 경로)가 담긴 환경 변수가 있기 때문에
+# cd 실행 시 수정해줘야 함.
 
-# 3. pwd
+# 3. pwd(with no options)
 # error: 에러 나는 경우가 없음
-# 홈 디렉토리 경로 출력하기
+# 현재 디렉토리 경로 출력하기 -> getcwd(buf, bufsize) 사용
 
 # 4. export(with no options)
 # error: 에러 나는 경우가 없음
@@ -170,7 +175,7 @@ re: fclean all
 # = 없는 cp_envp[i]는 출력 안하기
 # 정렬해서 출력하기
 
-# 5. unset
+# 5. unset(with no options)
 # error: 에러 나는 경우가 없음
 # 있는 환경 변수만 cp_envp 에서 삭제하기
 
@@ -179,6 +184,6 @@ re: fclean all
 # env는 key=value(USER=jinhokim)와 같이 = 으로 매칭이 되는 것만 출력함
 # = 없는 cp_envp[i]는 출력 안하기
 
-# 7. exit
+# 7. exit(with no options)
 # error: 인자가 숫자가 아닌 경우 -> g_exit_code = 2
 # exit 허용 함수 띠용? 

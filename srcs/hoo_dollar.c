@@ -12,17 +12,30 @@
 
 #include "minishell.h"
 
+int	env_strchr(char *s, char c)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+	{
+		if (s[i] == c)
+			return (i);
+	}
+	return (-1);
+}
+
 char	**env_split(char *str)
 {
 	char	**dict;
-	int		i;
 	int		str_len;
+	int		i;
 
 	dict = (char **)malloc(sizeof(char *) * 3);
-	i = 0;
 	str_len = (int)ft_strlen(str);
-	while (str[i] && str[i] != '=')
-		i++;
+	i = env_strchr(str, '=');
+	if (i == -1)
+		return (NULL);
 	dict[0] = (char *)malloc(sizeof(char) * (i + 1));
 	ft_strlcpy(dict[0], str, i + 1);
 	dict[1] = (char *)malloc(sizeof(char) * (str_len - i));
@@ -41,6 +54,8 @@ char	*find_env_value(char *str, char **cp_envp)
 	while (cp_envp[++i])
 	{
 		dict = env_split(cp_envp[i]);
+		if (dict == NULL)
+			continue ;
 		if (ft_strncmp(&str[1], dict[0], ft_strlen(dict[0]) + 1) == 0)
 		{
 			value = ft_strdup(dict[1]);

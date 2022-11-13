@@ -102,6 +102,7 @@ int		hoo(t_global *global);
 void	hoo_here_doc(t_node *node, t_global *global, int i);
 
 //hoo_dollar.c
+int	env_strchr(char *s, char c);
 char	**env_split(char *str);
 char	*find_env_value(char *str, char **cp_envp);
 void	hoo_dollar(t_node *node, t_global *global);
@@ -122,8 +123,12 @@ void	remove_redirection_util(t_global *global, t_node *node, t_node *tmp);
 
 //builtin.c
 void	run_echo(char **cmd_arr);
-void	run_export(char **cmd_arr, t_global *global);
+void	run_pwd(void);
+void	run_unset(char **cmd_arr, t_global *global);
 void	run_env(char **cmd_arr, t_global *global);
+
+//builtin_export.c
+void	run_export(char **cmd_arr, t_global *global);
 
 //execute.c
 void	execute(t_global *global);
