@@ -34,7 +34,7 @@ void	run_echo(char **cmd_arr)
 	printf("\n---  echo end  ---\n");
 }
 
-static char	*env_strchr(const char *s, int c)
+static char	*env_strchr(char *s, int c)
 {
 	char	char_c;
 

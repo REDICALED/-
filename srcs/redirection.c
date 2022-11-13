@@ -83,11 +83,9 @@ static void	remove_redirection(t_global *global)
 static void	set_redirection(t_global *global)
 {
 	int		i;
-	int		p;
 	t_node	*node;
 
 	i = 0;
-	p = 0;
 	node = global->head;
 	global->p_arr[0].head = global->head;
 	global->p_arr[global->p_count].tail = global->tail;

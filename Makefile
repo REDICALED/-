@@ -154,17 +154,25 @@ re: fclean all
 # 문자열 사이에 공백 잔뜩있어도 아무 상관 없음 -> 무조건 한 칸씩 띄어쓰기
 
 # 2. cd
+# error: 인자가 2개 이상 있는 경우 -> g_exit_code = 1
+# 상대 경로 -> cd ../test
+# 절대 경로 -> cd ~/test
 
 # 3. pwd
+# error: 에러 나는 경우가 없음
+# 홈 디렉토리 경로 출력하기
 
 # 4. export(with no options)
 # error: 에러 나는 경우가 없음
-# env와 다르게 key=value(USER=jinhokim)와 같이 = 으로 매칭이 것들 뿐만 아니라
+# env와 다르게 key=value(USER=jinhokim)와 같이 = 으로 매칭이
+# 되는 것들 뿐만 아니라 안되는 것도 출력함
 # key(export a), key=(export a=)
 # = 없는 cp_envp[i]는 출력 안하기
-
+# 정렬해서 출력하기
 
 # 5. unset
+# error: 에러 나는 경우가 없음
+# 있는 환경 변수만 cp_envp 에서 삭제하기
 
 # 6. env(with no options or arguments)
 # error: 인자가 있는 경우 -> g_exit_code = 1
@@ -172,3 +180,5 @@ re: fclean all
 # = 없는 cp_envp[i]는 출력 안하기
 
 # 7. exit
+# error: 인자가 숫자가 아닌 경우 -> g_exit_code = 2
+# exit 허용 함수 띠용? 

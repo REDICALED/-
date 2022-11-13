@@ -51,8 +51,8 @@ void	hoo_space_check(t_p_mom *p_mom)
 			tmp->prev->next = tmp;
 			if (node == p_mom->head)
 				p_mom->head = tmp;
-			free(node);
 			free(node->str);
+			free(node);
 			node = tmp;
 		}
 		node = node->next;
