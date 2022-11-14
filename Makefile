@@ -21,6 +21,7 @@ SRC = main.c \
 		builtin2.c \
 		builtin_export.c \
 		execute.c \
+		execve.c \
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror

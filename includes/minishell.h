@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 05:12:31 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 05:51:10 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,8 @@ void	run_export(char **cmd_arr, t_global *global);
 
 //execute.c
 void	execute(t_global *global);
+
+//execute_execve.c
+void	run_execve(char **cmd_arr, t_global *global);
 
 #endif

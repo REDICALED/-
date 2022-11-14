@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:35:43 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 04:51:52 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 06:00:33 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ static void	run_cmd(t_global *global, int idx)
 		//exit(0);
 	i = -1;
 	cmd_arr = get_cmd_arr(&(global->p_arr[idx]));
-	printf("cmd %d: %s\n", idx, cmd_arr[0]);
+	printf("\n----- run %s -----\n\n", cmd_arr[0]);
 	if (ft_strncmp(cmd_arr[0], "echo", 5) == 0)
 		run_echo(cmd_arr);
-	else if (ft_strncmp(cmd_arr[0], "cd", 3) == 0)
+	else if (ft_strncmp(cmd_arr[0], "cd", 3) == 0 && global->p_count == 0)
 		run_cd(cmd_arr, global);
 	else if (ft_strncmp(cmd_arr[0], "pwd", 4) == 0)
 		run_pwd();
@@ -63,9 +63,9 @@ static void	run_cmd(t_global *global, int idx)
 		run_export(cmd_arr, global);
 	else if (ft_strncmp(cmd_arr[0], "exit", 5) == 0)
 		run_exit(cmd_arr);
-	while (cmd_arr[++i])
-		free(cmd_arr[i]);
-	free(cmd_arr);
+	else
+		run_execve(cmd_arr, global);
+	free_arr(cmd_arr);
 }
 
 /*

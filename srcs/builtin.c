@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:35:21 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 05:00:28 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 05:34:37 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,18 @@ void	run_echo(char **cmd_arr)
 	if (cmd_arr[1] == NULL || \
 		(cmd_arr[1] && ft_strncmp(cmd_arr[1], "-n", 3) != 0))
 		printf("\n");
+	//exit(0);
 }
 
 void	run_cd(char **cmd_arr, t_global *global)
 {
-	(void)global;
+	char	*value;
+
 	if (cmd_arr[1] == NULL)
 	{
-		printf("cd home dir\n");
+		value = find_env_value("$HOME", global->cp_envp);
+		printf("cd home dir: %s\n", value);
+		free(value);
 		//exit(0);
 		return ;
 	}

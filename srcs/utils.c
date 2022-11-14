@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:32 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 05:13:37 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 05:26:16 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	free_arr(char **arr)
 	int	i;
 
 	i = -1;
-	while (arr[++i])  
+	while (arr[++i])
 		free(arr[i]);
 	free(arr);
 }

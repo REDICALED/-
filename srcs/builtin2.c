@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/15 05:28:43 by jinhokim          #+#    #+#             */
+/*   Updated: 2022/11/15 05:28:46 by jinhokim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	env_remove(t_global *global, int j)
@@ -43,7 +55,6 @@ void	run_env(char **cmd_arr, t_global *global)
 	if (cmd_arr[1])
 	{
 		ft_putstr_fd("usage: env [with no options or arguments]\n", 2);
-		//g_exit_code = 1;
 		//exit(1);
 		return ;
 	}
@@ -73,7 +84,6 @@ void	run_exit(char **cmd_arr)
 		i = -1;
 		while (cmd_arr[1][++i])
 		{
-			printf("c: %c, ft_isalnum: %d\n", cmd_arr[1][i], ft_isdigit(cmd_arr[1][i]));
 			if (ft_isdigit(cmd_arr[1][i]) == 0)
 			{
 				ft_putstr_fd("exit: a: numeric argument required\n", 2);

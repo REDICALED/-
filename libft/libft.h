@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 01:44:55 by byeonkim          #+#    #+#             */
-/*   Updated: 2022/11/12 06:39:22 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 05:53:29 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char *s1, char s2);
 char	*ft_strjoin2(char *s1, char *s2);
+char	*ft_strjoin3(char *s1, char *s2);
 char	*ft_strtrim(char *s1, char *set);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
