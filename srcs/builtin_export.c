@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 06:47:48 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 02:51:45 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 04:55:51 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,10 @@ static void	print_export(t_global *global)
 			printf("declare -x ");
 			printf("%s=\"", dict[0]);
 			printf("%s\"\n", dict[1]);
-			free(dict[0]);
-			free(dict[1]);
-			free(dict);
+			free_arr(dict);
 		}
 	}
-	i = -1;
-	while (tmp_envp[++i])
-		free(tmp_envp[i]);
-	free(tmp_envp);
+	free_arr(tmp_envp);
 }
 
 static void	env_append(char *cmd, t_global *global)
@@ -81,10 +76,7 @@ static void	env_append(char *cmd, t_global *global)
 		tmp_envp[i] = ft_strdup(global->cp_envp[i]);
 	tmp_envp[i] = ft_strdup(cmd);
 	tmp_envp[i + 1] = NULL;
-	i = -1;
-	while (global->cp_envp[++i])
-		free(global->cp_envp[i]);
-	free(global->cp_envp);
+	free_arr(global->cp_envp);
 	global->cp_envp = tmp_envp;
 }
 
@@ -102,14 +94,10 @@ static int	env_update(char *cmd, char **cmd_dict, t_global *global)
 		{
 			free(global->cp_envp[i]);
 			global->cp_envp[i] = ft_strdup(cmd);
-			free(env_dict[0]);
-			free(env_dict[1]);
-			free(env_dict);
+			free_arr(env_dict);
 			return (1);
 		}
-		free(env_dict[0]);
-		free(env_dict[1]);
-		free(env_dict);
+		free_arr(env_dict);
 	}
 	return (0);
 }
@@ -120,8 +108,11 @@ void	run_export(char **cmd_arr, t_global *global)
 	char	**cmd_dict;
 
 	i = 0;
-	if (cmd_arr[1] && global->p_count == 0)
+	if (cmd_arr[1])
 	{
+		if (global->p_count != 0)
+			return ;
+			//exit(0);
 		while (cmd_arr[++i])
 		{
 			cmd_dict = env_split(cmd_arr[i]);
@@ -131,11 +122,10 @@ void	run_export(char **cmd_arr, t_global *global)
 				;
 			else
 				env_append(cmd_arr[i], global);
-			free(cmd_dict[0]);
-			free(cmd_dict[1]);
-			free(cmd_dict);
+			free_arr(cmd_dict);
 		}
 	}
 	else
 		print_export(global);
+	//exit(0);
 }

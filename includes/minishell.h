@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 02:57:17 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 05:12:31 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,15 @@ typedef struct s_global
 	t_node		*tail;
 }				t_global;
 
+//util.c
+int		is_space(char *line);
+void	unlink_here_doc(t_global *global);
+void	free_global(t_global *global);
+void	ft_print_node(t_node *head);
+void	ft_print_mom(t_global *global);
+char	**copy_envp(char **envp);
+void	free_arr(char **arr);
+
 //tokenize_util.c
 int		count_1(t_global *global, int i);
 int		count_2(t_global *global, int i);
@@ -86,13 +95,6 @@ int		count_7(t_global *global, int i);
 int		count_8(t_global *global, int i);
 int		count_9(t_global *global, int i);
 
-//util.c
-int		is_space(char *line);
-void	free_global(t_global *global);
-void	ft_print_node(t_node *head);
-void	ft_print_mom(t_global *global);
-char	**copy_envp(char **envp);
-
 //tokenize.c
 void	add_node(t_global *global, t_token token, char c);
 void	tokenize(char *line, t_global *global);
@@ -101,7 +103,7 @@ void	tokenize(char *line, t_global *global);
 int		hoo(t_global *global);
 
 //hoo_here_doc.c
-void	hoo_here_doc(t_node *node, t_global *global, int i);
+void	hoo_here_doc(t_node *node, int i);
 
 //hoo_dollar.c
 int	env_strchr(char *s, char c);
@@ -127,8 +129,11 @@ void	remove_redirection_util(t_global *global, t_node *node, t_node *tmp);
 void	run_echo(char **cmd_arr);
 void	run_cd(char **cmd_arr, t_global *global);
 void	run_pwd(void);
+
+//builtin.c
 void	run_unset(char **cmd_arr, t_global *global);
 void	run_env(char **cmd_arr, t_global *global);
+void	run_exit(char **cmd_arr);
 
 //builtin_export.c
 void	run_export(char **cmd_arr, t_global *global);

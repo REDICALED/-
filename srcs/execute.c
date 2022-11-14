@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:35:43 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 03:03:29 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 04:51:52 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,15 @@ static void	run_cmd(t_global *global, int idx)
 	int		i;
 	char	**cmd_arr;
 
+	if (global->p_arr[idx].head->token == e_pipe)
+		return ;
+		//exit(0);
 	i = -1;
 	cmd_arr = get_cmd_arr(&(global->p_arr[idx]));
-	printf("cmd %d: %s\n", i, cmd_arr[0]);
+	printf("cmd %d: %s\n", idx, cmd_arr[0]);
 	if (ft_strncmp(cmd_arr[0], "echo", 5) == 0)
 		run_echo(cmd_arr);
-	if (ft_strncmp(cmd_arr[0], "cd", 3) == 0)
+	else if (ft_strncmp(cmd_arr[0], "cd", 3) == 0)
 		run_cd(cmd_arr, global);
 	else if (ft_strncmp(cmd_arr[0], "pwd", 4) == 0)
 		run_pwd();
@@ -56,15 +59,10 @@ static void	run_cmd(t_global *global, int idx)
 		run_env(cmd_arr, global);
 	else if (ft_strncmp(cmd_arr[0], "unset", 6) == 0 && global->p_count == 0)
 		run_unset(cmd_arr, global);
-	else if (ft_strncmp(cmd_arr[0], "export", 7) == 0 && global->p_count == 0)
+	else if (ft_strncmp(cmd_arr[0], "export", 7) == 0)
 		run_export(cmd_arr, global);
 	else if (ft_strncmp(cmd_arr[0], "exit", 5) == 0)
-	{
-		while (cmd_arr[++i])
-			free(cmd_arr[i]);
-		free(cmd_arr);
-		exit(0);
-	}
+		run_exit(cmd_arr);
 	while (cmd_arr[++i])
 		free(cmd_arr[i]);
 	free(cmd_arr);

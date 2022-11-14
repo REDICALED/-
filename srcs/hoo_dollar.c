@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:19 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 02:53:26 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 04:38:43 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,10 @@ char	*find_env_value(char *str, char **cp_envp)
 		if (ft_strncmp(&str[1], dict[0], ft_strlen(dict[0]) + 1) == 0)
 		{
 			value = ft_strdup(dict[1]);
-			free(dict[0]);
-			free(dict[1]);
-			free(dict);
+			free_arr(dict);
 			return (value);
 		}
-		free(dict[0]);
-		free(dict[1]);
-		free(dict);
+		free_arr(dict);
 	}
 	value = ft_strdup("");
 	return (value);

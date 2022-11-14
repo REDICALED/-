@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:00 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/12 05:36:01 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 05:12:47 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static int	hoo_loop(t_p_mom *p_mom, t_global *global)
 	while (node && node != p_mom->tail->next)
 	{
 		if (node->token == read_in2)
-			hoo_here_doc(node, global, p_mom->i);
+			hoo_here_doc(node, p_mom->i);
 		if (node->token == dollar)
 			hoo_dollar(node, global);
 		if (node->token == s_quote)

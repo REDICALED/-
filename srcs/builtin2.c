@@ -1,0 +1,86 @@
+#include "minishell.h"
+
+static void	env_remove(t_global *global, int j)
+{
+	free(global->cp_envp[j]);
+	while (global->cp_envp[++j])
+		global->cp_envp[j - 1] = global->cp_envp[j];
+	global->cp_envp[j - 1] = NULL;
+}
+
+void	run_unset(char **cmd_arr, t_global *global)
+{
+	int		i;
+	int		j;
+	char	**dict;
+
+	i = 0;
+	while (cmd_arr[++i])
+	{
+		j = -1;
+		while (global->cp_envp[++j])
+		{
+			dict = env_split(global->cp_envp[j]);
+			if (dict == NULL)
+			{
+				if (ft_strncmp(cmd_arr[i], global->cp_envp[j], \
+						ft_strlen(global->cp_envp[j]) + 1) == 0)
+					env_remove(global, j);
+			}
+			else if (ft_strncmp(cmd_arr[i], dict[0], \
+					ft_strlen(dict[0]) + 1) == 0)
+				env_remove(global, j);
+			free_arr(dict);
+		}
+	}
+	//exit(0);
+}
+
+void	run_env(char **cmd_arr, t_global *global)
+{
+	int	i;
+
+	if (cmd_arr[1])
+	{
+		ft_putstr_fd("usage: env [with no options or arguments]\n", 2);
+		//g_exit_code = 1;
+		//exit(1);
+		return ;
+	}
+	i = -1;
+	while (global->cp_envp[++i])
+	{
+		if (env_strchr(global->cp_envp[i], '=') >= 0)
+			printf("%s\n", global->cp_envp[i]);
+	}
+	//exit(0);
+}
+
+void	run_exit(char **cmd_arr)
+{
+	int	i;
+
+	if (cmd_arr[1] == NULL)
+		exit(0);
+	if (cmd_arr[1] && cmd_arr[2])
+	{
+		ft_putstr_fd("exit: too many arguments\n", 2);
+		free_arr(cmd_arr);
+		exit(1);
+	}
+	else if (cmd_arr[1] && cmd_arr[2] == NULL)
+	{
+		i = -1;
+		while (cmd_arr[1][++i])
+		{
+			printf("c: %c, ft_isalnum: %d\n", cmd_arr[1][i], ft_isdigit(cmd_arr[1][i]));
+			if (ft_isdigit(cmd_arr[1][i]) == 0)
+			{
+				ft_putstr_fd("exit: a: numeric argument required\n", 2);
+				free_arr(cmd_arr);
+				exit(255);
+			}
+		}
+		exit(ft_atoi(cmd_arr[1]));
+	}
+}

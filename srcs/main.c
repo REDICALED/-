@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:04 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 02:36:19 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 04:40:20 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,6 @@ static void	init(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-}
-
-static void	free_cp_envp(t_global *global)
-{
-	int	i;
-
-	i = -1;
-	while (global->cp_envp[++i] != NULL)
-		free(global->cp_envp[i]);
-	free(global->cp_envp);
 }
 
 void	a(void)
@@ -62,7 +52,6 @@ int	main(int argc, char **argv, char **envp)
 				free(line);
 				printf("g_exit_code: %d\n", g_exit_code);
 				continue ;
-				//break ;
 			}
 			printf("----- hoo finish -----\n\n");
 			ft_print_node(global.head);
@@ -79,8 +68,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free(line);
 		printf("g_exit_code: %d\n", g_exit_code);
-		//break ;
 	}
-	free_cp_envp(&global);
+	free_arr(global.cp_envp);
 	return (0);
 }

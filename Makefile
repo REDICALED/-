@@ -18,6 +18,7 @@ SRC = main.c \
 		redirection.c \
 		redirection_utils.c \
 		builtin.c \
+		builtin2.c \
 		builtin_export.c \
 		execute.c \
 
@@ -188,5 +189,5 @@ re: fclean all
 
 # 7. exit(with no options)
 # error: 인자가 2개 이상인 경우 -> g_exit_code = 1
-# error: 인자가 숫자가 아닌 경우 -> g_exit_code = 2
-# exit 허용 함수 띠용? 
+# error: 인자가 숫자가 아닌 경우 -> g_exit_code = 255
+# error 아닌  경우 -> cmd_arr[1]로 exit 해줌
