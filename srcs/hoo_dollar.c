@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:19 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/12 05:36:20 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 02:53:26 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ int	env_strchr(char *s, char c)
 
 char	**env_split(char *str)
 {
-	char	**dict;
-	int		str_len;
 	int		i;
+	int		str_len;
+	char	**dict;
 
-	dict = (char **)malloc(sizeof(char *) * 3);
-	str_len = (int)ft_strlen(str);
 	i = env_strchr(str, '=');
 	if (i == -1)
 		return (NULL);
+	str_len = (int)ft_strlen(str);
+	dict = (char **)malloc(sizeof(char *) * 3);
 	dict[0] = (char *)malloc(sizeof(char) * (i + 1));
 	ft_strlcpy(dict[0], str, i + 1);
 	dict[1] = (char *)malloc(sizeof(char) * (str_len - i));

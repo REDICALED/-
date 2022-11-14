@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:35:43 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/12 07:21:45 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 03:03:29 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,29 +45,29 @@ static void	run_cmd(t_global *global, int idx)
 
 	i = -1;
 	cmd_arr = get_cmd_arr(&(global->p_arr[idx]));
-	printf("cmd: %s\n", cmd_arr[0]);
-	if (ft_strncmp(cmd_arr[0], "echo", 4 + 1) == 0)
-	{
+	printf("cmd %d: %s\n", i, cmd_arr[0]);
+	if (ft_strncmp(cmd_arr[0], "echo", 5) == 0)
 		run_echo(cmd_arr);
-		printf("echo\n");
-		sleep(5);
-	}
-	else if (ft_strncmp(cmd_arr[0], "pwd", 3 + 1) == 0)
-	{
+	if (ft_strncmp(cmd_arr[0], "cd", 3) == 0)
+		run_cd(cmd_arr, global);
+	else if (ft_strncmp(cmd_arr[0], "pwd", 4) == 0)
 		run_pwd();
-		printf("pwd\n");
-		sleep(1);
-	}
-	else if (ft_strncmp(cmd_arr[0], "env", 3 + 1) == 0)
+	else if (ft_strncmp(cmd_arr[0], "env", 4) == 0)
 		run_env(cmd_arr, global);
-	else if (ft_strncmp(cmd_arr[0], "unset", 5 + 1) == 0)
+	else if (ft_strncmp(cmd_arr[0], "unset", 6) == 0 && global->p_count == 0)
 		run_unset(cmd_arr, global);
-	else if (ft_strncmp(cmd_arr[0], "export", 6 + 1) == 0)
+	else if (ft_strncmp(cmd_arr[0], "export", 7) == 0 && global->p_count == 0)
 		run_export(cmd_arr, global);
+	else if (ft_strncmp(cmd_arr[0], "exit", 5) == 0)
+	{
+		while (cmd_arr[++i])
+			free(cmd_arr[i]);
+		free(cmd_arr);
+		exit(0);
+	}
 	while (cmd_arr[++i])
 		free(cmd_arr[i]);
 	free(cmd_arr);
-	exit(0);
 }
 
 /*
@@ -121,19 +121,24 @@ static void	run_cmd(t_global *global)
 void	execute(t_global *global)
 {
 	int		i;
-	pid_t	pid_li[global->p_count + 1];
-	int		status;
+	//pid_t	pid_li[global->p_count + 1];
+	//int		status;
 	//int		fd[2];
 
 	i = 0;
 	while (i <= global->p_count && global->p_arr[i].head)
 	{
 		//pid_li[i] = run_cmd();
+
+		/*
 		pid_li[i] = fork();
 		if (pid_li[i] == 0)
 			run_cmd(global, i);
+		*/
+		run_cmd(global, i);
 		i++;
 	}
+	/*
 	i = 0;
 	while (i <= global->p_count && global->p_arr[i].head)
 	{
@@ -142,7 +147,7 @@ void	execute(t_global *global)
 			g_exit_code = WEXITSTATUS(status);
 		i++;
 	}
-	printf("%d\n", g_exit_code);
+	*/
 }
 
 /*

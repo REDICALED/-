@@ -157,7 +157,9 @@ re: fclean all
 # 문자열 사이에 공백 잔뜩있어도 아무 상관 없음 -> 무조건 한 칸씩 띄어쓰기
 
 # 2. cd(with only a relative or absolute path)
-# error: 인자가 2개 이상 있는 경우 -> g_exit_code = 1
+# error: 에러 나는 경우가 없음
+# error: 인자가 2개 이상 있는 경우 -> 뒤에 꺼 무시함
+# cd -> home 경로로
 # 상대 경로 -> cd ../test
 # 절대 경로 -> cd ~/test
 # PWD(현재 경로), OLDPWD(이전 경로)가 담긴 환경 변수가 있기 때문에

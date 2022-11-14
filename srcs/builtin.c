@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:35:21 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/12 06:50:04 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 03:08:21 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,17 @@ void	run_echo(char **cmd_arr)
 	if (cmd_arr[1] == NULL || \
 		(cmd_arr[1] && ft_strncmp(cmd_arr[1], "-n", 3) != 0))
 		printf("\n");
+}
+
+void	run_cd(char **cmd_arr, t_global *global)
+{
+	(void)global;
+	if (cmd_arr[1] == NULL)
+	{
+		printf("cd home dir\n");
+		return ;
+	}
+	printf("cd %s\n", cmd_arr[1]);
 }
 
 void	run_pwd(void)
@@ -57,8 +68,6 @@ void	run_unset(char **cmd_arr, t_global *global)
 	char	**dict;
 
 	i = 0;
-	if (global->p_count > 0)
-		return ;
 	while (cmd_arr[++i])
 	{
 		j = -1;
@@ -71,8 +80,12 @@ void	run_unset(char **cmd_arr, t_global *global)
 						ft_strlen(global->cp_envp[j]) + 1) == 0)
 					env_remove(global, j);
 			}
-			else if (ft_strncmp(cmd_arr[i], dict[0], ft_strlen(dict[0]) + 1) == 0)
+			else if (ft_strncmp(cmd_arr[i], dict[0], \
+					ft_strlen(dict[0]) + 1) == 0)
 				env_remove(global, j);
+			free(dict[0]);
+			free(dict[1]);
+			free(dict);
 		}
 	}
 }

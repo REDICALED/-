@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:04 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/12 06:25:43 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 02:36:19 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int	main(int argc, char **argv, char **envp)
 				free_global(&global);
 				free(line);
 				printf("g_exit_code: %d\n", g_exit_code);
-				//continue ;
-				break ;
+				continue ;
+				//break ;
 			}
 			printf("----- hoo finish -----\n\n");
 			ft_print_node(global.head);
@@ -79,7 +79,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free(line);
 		printf("g_exit_code: %d\n", g_exit_code);
-		break ;
+		//break ;
 	}
 	free_cp_envp(&global);
 	return (0);
