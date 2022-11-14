@@ -145,7 +145,7 @@ re: fclean all
 
 
 # --- 4. 실행 ---
-# single 커맨드가 아니면 즉 파이프가 있는 경우
+# single 커맨드가 아니면 즉 파이프가 있는 경우,
 # cd, export, unset 같은 상태가 바뀌는 명령들이 동작을 안함.
 
 # 함수 인자를 잘못 써서 usage: ~a 나오는 경우 -> g_exit_code = 1
@@ -185,5 +185,6 @@ re: fclean all
 # = 없는 cp_envp[i]는 출력 안하기
 
 # 7. exit(with no options)
+# error: 인자가 2개 이상인 경우 -> g_exit_code = 1
 # error: 인자가 숫자가 아닌 경우 -> g_exit_code = 2
 # exit 허용 함수 띠용? 

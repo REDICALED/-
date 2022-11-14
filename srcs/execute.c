@@ -38,15 +38,26 @@ static char	**get_cmd_arr(t_p_mom *p_mom)
 	return (cmd_arr);
 }
 
-static void	run_cmd(char **cmd_arr, t_global *global)
+static void	run_cmd(t_global *global, int idx)
 {
-	int	i;
+	int		i;
+	char	**cmd_arr;
 
 	i = -1;
+	cmd_arr = get_cmd_arr(&(global->p_arr[idx]));
+	printf("cmd: %s\n", cmd_arr[0]);
 	if (ft_strncmp(cmd_arr[0], "echo", 4 + 1) == 0)
+	{
 		run_echo(cmd_arr);
-	if (ft_strncmp(cmd_arr[0], "pwd", 3 + 1) == 0)
+		printf("echo\n");
+		sleep(5);
+	}
+	else if (ft_strncmp(cmd_arr[0], "pwd", 3 + 1) == 0)
+	{
 		run_pwd();
+		printf("pwd\n");
+		sleep(1);
+	}
 	else if (ft_strncmp(cmd_arr[0], "env", 3 + 1) == 0)
 		run_env(cmd_arr, global);
 	else if (ft_strncmp(cmd_arr[0], "unset", 5 + 1) == 0)
@@ -56,34 +67,82 @@ static void	run_cmd(char **cmd_arr, t_global *global)
 	while (cmd_arr[++i])
 		free(cmd_arr[i]);
 	free(cmd_arr);
+	exit(0);
 }
+
+/*
+static void	run_cmd(t_global *global)
+{
+	int		i;
+	char	**cmd_arr;
+	int		fd[2];
+	pid_t	pid;
+
+	i = -1;
+	cmd_arr = get_cmd_arr(&(global->p_arr[i]));
+	pipe(fd);
+	pid = fork();
+	if (pid == 0)
+	{
+		ls 
+		if (global->p_arr[~].input > 0)
+			dup2(global->p_arr[~].input, STDIN_FILENO);
+		close(fd[0])
+		else
+			dup2(fd[0], STDIN_FILENO);
+		dup2(fd[1], STDOUT_FILENO);
+		if (ft_strncmp(cmd_arr[0], "echo", 4 + 1) == 0)
+		{
+			run_echo(cmd_arr);
+			sleep(5);
+		}
+		else if (ft_strncmp(cmd_arr[0], "pwd", 3 + 1) == 0)
+		{
+			run_pwd();
+			sleep(1);
+		}
+		else if (ft_strncmp(cmd_arr[0], "env", 3 + 1) == 0)
+			run_env(cmd_arr, global);
+		else if (ft_strncmp(cmd_arr[0], "unset", 5 + 1) == 0)
+			run_unset(cmd_arr, global);
+		else if (ft_strncmp(cmd_arr[0], "export", 6 + 1) == 0)
+			run_export(cmd_arr, global);
+		while (cmd_arr[++i])
+			free(cmd_arr[i]);
+		free(cmd_arr);
+	}
+	if (pid > 0)
+	{
+		return (pid);
+	}
+}
+*/
 
 void	execute(t_global *global)
 {
 	int		i;
-	//pid_t	pid_li[global->p_count + 1];
-	char	**cmd_arr;
-	
+	pid_t	pid_li[global->p_count + 1];
+	int		status;
+	//int		fd[2];
 
 	i = 0;
-	if (global->head == NULL)
-		return ;
-	/*
-	if (global->p_count == 0)
-	{
-		i = 0;
-		// single
-		return ;
-	}
-	//pid_li[0] = fork();
-	*/
 	while (i <= global->p_count && global->p_arr[i].head)
 	{
-		printf("--- run %d cmd ---\n", i);
-		cmd_arr = get_cmd_arr(&(global->p_arr[i]));
-		run_cmd(cmd_arr, global);
+		//pid_li[i] = run_cmd();
+		pid_li[i] = fork();
+		if (pid_li[i] == 0)
+			run_cmd(global, i);
 		i++;
 	}
+	i = 0;
+	while (i <= global->p_count && global->p_arr[i].head)
+	{
+		waitpid(pid_li[i], &status, 0);
+		if (i == global->p_count)
+			g_exit_code = WEXITSTATUS(status);
+		i++;
+	}
+	printf("%d\n", g_exit_code);
 }
 
 /*
@@ -97,7 +156,6 @@ void	pipe_run()
 
 	if (pid == 0)
 	{
-		// 여기서 마지막 read_in 찾기
 		child
 	}
 	else

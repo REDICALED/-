@@ -21,6 +21,8 @@
 # include <errno.h>
 # include <fcntl.h>
 # include "libft.h"
+# include <sys/wait.h>
+# include <fcntl.h>
 
 int	g_exit_code;
 

@@ -57,6 +57,8 @@ void	run_unset(char **cmd_arr, t_global *global)
 	char	**dict;
 
 	i = 0;
+	if (global->p_count > 0)
+		return ;
 	while (cmd_arr[++i])
 	{
 		j = -1;
