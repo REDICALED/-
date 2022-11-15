@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:35:43 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 19:18:41 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 19:56:06 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ static void	run_cmd(t_global *global, int idx)
 	cmd_arr = get_cmd_arr(&(global->p_arr[idx]));
 	if (ft_strncmp(cmd_arr[0], "echo", 5) == 0)
 		run_echo(cmd_arr);
-	else if (ft_strncmp(cmd_arr[0], "cd", 3) == 0 && global->p_count == 0)
+	else if (ft_strncmp(cmd_arr[0], "cd", 3) == 0)
 		run_cd(cmd_arr, global);
 	else if (ft_strncmp(cmd_arr[0], "pwd", 4) == 0)
 		run_pwd();
 	else if (ft_strncmp(cmd_arr[0], "env", 4) == 0)
 		run_env(cmd_arr, global);
-	else if (ft_strncmp(cmd_arr[0], "unset", 6) == 0 && global->p_count == 0)
+	else if (ft_strncmp(cmd_arr[0], "unset", 6) == 0)
 		run_unset(cmd_arr, global);
 	else if (ft_strncmp(cmd_arr[0], "export", 7) == 0)
 		run_export(cmd_arr, global);
@@ -74,8 +74,6 @@ static void	dup_child(t_global *global, int idx, int *fd)
 	}
 	if (p_mom->input != -1)
 		dup2(p_mom->input, STDIN_FILENO);
-	//else if (idx != 0)
-		//dup2(fd[0], STDIN_FILENO);
 	if (p_mom->output != -1)
 		dup2(p_mom->output, STDOUT_FILENO);
 	else
@@ -88,8 +86,6 @@ static int	pipe_run(t_global *global, int idx)
 {
 	int		fd[2];
 	pid_t	pid;
-	//int 	stdin_dup;
-	//int 	stdout_dup;
 
 	pipe(fd);
 	pid = fork();
@@ -98,19 +94,9 @@ static int	pipe_run(t_global *global, int idx)
 		dup_child(global, idx, fd);
 		run_cmd(global, idx);
 	}
-	//stdin_dup = dup(0);
-	//stdout_dup = dup(1);
-
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
 	close(fd[1]);
-
-/*
-	dup2(stdin_dup, 0);
-	dup2(stdout_dup, 1);
-	close(stdin_dup);
-	close(stdout_dup);
-	*/
 	return (pid);
 }
 
@@ -118,8 +104,6 @@ static int	last_pipe_run(t_global *global, int idx)
 {
 	pid_t	pid;
 	t_p_mom	*p_mom;
-	//int 	stdin_dup;
-	//int 	stdout_dup;
 
 	p_mom = &(global->p_arr[idx]);
 	pid = fork();
@@ -131,7 +115,6 @@ static int	last_pipe_run(t_global *global, int idx)
 			dup2(p_mom->output, STDOUT_FILENO);
 		run_cmd(global, idx);
 	}
-	printf("last pipe run\n");
 	return (pid);
 }
 
@@ -140,15 +123,21 @@ void	execute(t_global *global)
 	int		i;
 	pid_t	pid_li[global->p_count + 1];
 	int		status;
-	int 	stdin_dup;
-	int 	stdout_dup;
+	int		stdin_dup;
+	int		stdout_dup;
 
 	i = 0;
 	stdin_dup = dup(0);
 	stdout_dup = dup(1);
 	while (i < global->p_count && global->p_arr[i].head)
 	{
-		pid_li[i] = pipe_run(global, i);
+		if (global->p_arr[i].head && global->p_arr[i].head->token != e_pipe)
+			pid_li[i] = pipe_run(global, i);
+		else if (global->p_arr[i].head && global->p_arr[i].head->token \
+				== e_pipe)
+			exit(global->p_arr[i].read_error);
+		else if (global->p_arr[i].head == NULL)
+			exit(global->p_arr[i].read_error);
 		i++;
 	}
 	pid_li[i] = last_pipe_run(global, i);
