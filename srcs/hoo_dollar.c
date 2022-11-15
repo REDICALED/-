@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:19 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 04:38:43 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 08:52:29 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ void	hoo_dollar(t_node *node, t_global *global)
 {
 	char	*value;
 
-	printf("=== dollar start ===\n");
-	printf("str: %s, str_len: %d\n", node->str, (int)ft_strlen(node->str));
 	node->token = string;
 	if ((int)ft_strlen(node->str) == 1)
 		return ;
@@ -83,6 +81,4 @@ void	hoo_dollar(t_node *node, t_global *global)
 		value = find_env_value(node->str, global->cp_envp);
 	free(node->str);
 	node->str = value;
-	printf("===  dollar end  ===\n");
-	printf("str: %s, str_len: %d\n\n", node->str, (int)ft_strlen(node->str));
 }

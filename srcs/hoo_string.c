@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:35:50 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/12 05:35:51 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 08:52:03 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	hoo_string(t_node *node, t_global *global, t_p_mom *p_mom)
 
 	if (node->prev && node->prev->token == string)
 	{
-		printf("hoo_string start\n");
 		tmp = ft_strjoin2(node->prev->str, node->str);
 		free(node->str);
 		node->str = tmp;
@@ -32,7 +31,6 @@ void	hoo_string(t_node *node, t_global *global, t_p_mom *p_mom)
 		node->prev = tmp_node;
 		if (node->prev)
 			node->prev->next = node;
-		printf("node->str: %s\n", node->str);
 	}
 }
 
@@ -55,6 +53,7 @@ void	hoo_space_check(t_p_mom *p_mom)
 			free(node);
 			node = tmp;
 		}
-		node = node->next;
+		if (node)
+			node = node->next;
 	}
 }

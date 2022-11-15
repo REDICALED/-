@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:00 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 05:12:47 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 08:52:10 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@ static void	pipe_mom_init(t_global *global)
 		global->p_arr[i].output = -1;
 		global->p_arr[i].read_error = 0;
 		global->p_arr[i].head = node;
-		while (node->next && node->token != e_pipe)
+		while (node && node->next && node->token != e_pipe)
 			node = node->next;
 		global->p_arr[i].tail = node;
-		node = node->next;
-		if (node == NULL)
-			break ;
+		if (node)
+			node = node->next;
 	}
 }
 
@@ -56,7 +55,10 @@ static void	hoo_etc(t_node *node)
 	{
 		if (node->token == e_pipe && node->next->token == space && \
 				node->next->next == NULL)
+		{
 			node->token = e_error;
+			return ;
+		}
 		else if (node->next->token == space && node->token != e_pipe)
 		{
 			node->next = node->next->next;
@@ -88,10 +90,10 @@ static int	hoo_loop(t_p_mom *p_mom, t_global *global)
 			node->token = string;
 		if (node->token == d_quote)
 			hoo_double_quote(node, global);
-		if (node->token >= read_in && node->token <= e_pipe)
-			hoo_etc(node);
 		if (node->token == string)
 			hoo_string(node, global, p_mom);
+		if (node->token >= read_in && node->token <= e_pipe)
+			hoo_etc(node);
 		if (node->token == e_error)
 		{
 			g_exit_code = 258;
@@ -110,13 +112,16 @@ int	hoo(t_global *global)
 	hoo_init(global);
 	i = -1;
 	error = 0;
-	while (++i <= global->p_count)
+	while (++i <= global->p_count && global->p_arr[i].head)
 	{
 		if (hoo_loop(&(global->p_arr[i]), global))
+		{
 			error = 1;
+			break ;
+		}
 	}
 	i = -1;
-	while (++i <= global->p_count)
+	while (++i <= global->p_count && global->p_arr[i].head)
 		hoo_space_check(&(global->p_arr[i]));
 	if (error == 1)
 		return (1);

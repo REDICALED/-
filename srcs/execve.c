@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_execve.c                                   :+:      :+:    :+:   */
+/*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 05:36:20 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 06:05:28 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 10:16:16 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	run_execve(char **cmd_arr, t_global *global)
 	}
 	if (execve(cmd_path, cmd_arr, global->cp_envp) == -1)
 	{
-		ft_putstr_fd(": execve error\n", 2);
+		ft_putstr_fd("execve error\n", 2);
 		exit(1);
 	}
 }
