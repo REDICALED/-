@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:35:43 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 13:19:42 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 19:18:41 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,12 @@ static void	dup_child(t_global *global, int idx, int *fd)
 	}
 	if (p_mom->input != -1)
 		dup2(p_mom->input, STDIN_FILENO);
+	//else if (idx != 0)
+		//dup2(fd[0], STDIN_FILENO);
 	if (p_mom->output != -1)
 		dup2(p_mom->output, STDOUT_FILENO);
 	else
-	{
-		if (idx < global->p_count)
-			dup2(fd[1], STDOUT_FILENO);
-	}
+		dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);
 	close(fd[1]);
 }
@@ -89,6 +88,8 @@ static int	pipe_run(t_global *global, int idx)
 {
 	int		fd[2];
 	pid_t	pid;
+	//int 	stdin_dup;
+	//int 	stdout_dup;
 
 	pipe(fd);
 	pid = fork();
@@ -97,35 +98,40 @@ static int	pipe_run(t_global *global, int idx)
 		dup_child(global, idx, fd);
 		run_cmd(global, idx);
 	}
-	else
-	{
-		if (idx < global->p_count)
-			dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		close(fd[1]);
-	}
+	//stdin_dup = dup(0);
+	//stdout_dup = dup(1);
+
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[0]);
+	close(fd[1]);
+
+/*
+	dup2(stdin_dup, 0);
+	dup2(stdout_dup, 1);
+	close(stdin_dup);
+	close(stdout_dup);
+	*/
 	return (pid);
 }
 
 static int	last_pipe_run(t_global *global, int idx)
 {
-	int		fd[2];
 	pid_t	pid;
+	t_p_mom	*p_mom;
+	//int 	stdin_dup;
+	//int 	stdout_dup;
 
-	pipe(fd);
+	p_mom = &(global->p_arr[idx]);
 	pid = fork();
 	if (pid == 0)
 	{
-		dup_child(global, idx, fd);
+		if (p_mom->input != -1)
+			dup2(p_mom->input, STDIN_FILENO);
+		if (p_mom->output != -1)
+			dup2(p_mom->output, STDOUT_FILENO);
 		run_cmd(global, idx);
 	}
-	else
-	{
-		if (idx < global->p_count)
-			dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		close(fd[1]);
-	}
+	printf("last pipe run\n");
 	return (pid);
 }
 
@@ -134,15 +140,23 @@ void	execute(t_global *global)
 	int		i;
 	pid_t	pid_li[global->p_count + 1];
 	int		status;
+	int 	stdin_dup;
+	int 	stdout_dup;
 
 	i = 0;
-	while (i <= global->p_count && global->p_arr[i].head)
+	stdin_dup = dup(0);
+	stdout_dup = dup(1);
+	while (i < global->p_count && global->p_arr[i].head)
 	{
 		pid_li[i] = pipe_run(global, i);
 		i++;
 	}
 	pid_li[i] = last_pipe_run(global, i);
 	i = 0;
+	dup2(stdin_dup, 0);
+	dup2(stdout_dup, 1);
+	close(stdin_dup);
+	close(stdout_dup);
 	while (i <= global->p_count && global->p_arr[i].head)
 	{
 		waitpid(pid_li[i], &status, 0);

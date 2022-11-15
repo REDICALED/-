@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:04 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 13:24:12 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/15 14:36:09 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	main(int argc, char **argv, char **envp)
 
 	init(argc, argv);
 	global.cp_envp = copy_envp(envp);
-	int tmptmp = 0;
 	while (42)
 	{
 		line = readline("minishell$ ");
@@ -62,8 +61,8 @@ int	main(int argc, char **argv, char **envp)
 			free_global(&global);
 		}
 		free(line);
+		line = NULL;
 		// printf("g_exit_code: %d\n", g_exit_code);
-		printf("%d\n", tmptmp++);
 	}
 	free_arr(global.cp_envp);
 	return (0);
