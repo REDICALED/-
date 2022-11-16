@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:04 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 19:26:53 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 20:11:01 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,8 @@ static void	minishell(t_global *global)
 	free(line);
 }
 
-void	a(void)
-{
-	system("leaks minishell");
-}
-
 int	main(int argc, char **argv, char **envp)
 {
-	atexit(a);
 	t_global	global;
 
 	init(argc, argv, envp, &global);

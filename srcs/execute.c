@@ -6,34 +6,11 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:35:43 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 19:07:15 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 19:50:12 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	run_cmd(t_global *global, int idx)
-{
-	char	**cmd_arr;
-
-	cmd_arr = get_cmd_arr(&(global->p_arr[idx]));
-	if (ft_strncmp(cmd_arr[0], "echo", 5) == 0)
-		run_echo(cmd_arr, global);
-	else if (ft_strncmp(cmd_arr[0], "cd", 3) == 0)
-		run_cd(cmd_arr, global);
-	else if (ft_strncmp(cmd_arr[0], "pwd", 4) == 0)
-		run_pwd(global);
-	else if (ft_strncmp(cmd_arr[0], "env", 4) == 0)
-		run_env(cmd_arr, global);
-	else if (ft_strncmp(cmd_arr[0], "unset", 6) == 0)
-		run_unset(cmd_arr, global);
-	else if (ft_strncmp(cmd_arr[0], "export", 7) == 0)
-		run_export(cmd_arr, global);
-	else if (ft_strncmp(cmd_arr[0], "exit", 5) == 0)
-		run_exit(cmd_arr, global);
-	else
-		run_execve(cmd_arr, global);
-}
 
 char	**get_cmd_arr(t_p_mom *p_mom)
 {
@@ -87,6 +64,29 @@ void	builtin_exit(t_global *global, int exit_code)
 		g_exit_code = exit_code;
 	else
 		exit(exit_code);
+}
+
+void	run_cmd(t_global *global, int idx)
+{
+	char	**cmd_arr;
+
+	cmd_arr = get_cmd_arr(&(global->p_arr[idx]));
+	if (ft_strncmp(cmd_arr[0], "echo", 5) == 0)
+		run_echo(cmd_arr, global);
+	else if (ft_strncmp(cmd_arr[0], "cd", 3) == 0)
+		run_cd(cmd_arr, global);
+	else if (ft_strncmp(cmd_arr[0], "pwd", 4) == 0)
+		run_pwd(global);
+	else if (ft_strncmp(cmd_arr[0], "env", 4) == 0)
+		run_env(cmd_arr, global);
+	else if (ft_strncmp(cmd_arr[0], "unset", 6) == 0)
+		run_unset(cmd_arr, global);
+	else if (ft_strncmp(cmd_arr[0], "export", 7) == 0)
+		run_export(cmd_arr, global);
+	else if (ft_strncmp(cmd_arr[0], "exit", 5) == 0)
+		run_exit(cmd_arr);
+	else
+		run_execve(cmd_arr, global);
 }
 
 void	execute(t_global *global)

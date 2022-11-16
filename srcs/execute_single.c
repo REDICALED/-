@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:06:56 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 19:18:26 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 19:48:32 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	run_single_execve(t_global *global, char **cmd_arr)
 {
 	pid_t	pid;
-	//int		status;
+	int		status;
 
 	pid = fork();
 	if (pid == 0)
@@ -26,8 +26,8 @@ static void	run_single_execve(t_global *global, char **cmd_arr)
 			dup2(global->p_arr[0].output, STDOUT_FILENO);
 		run_execve(cmd_arr, global);
 	}
-	wait(NULL);
-	// exit_code
+	waitpid(pid, &status, 0);
+	g_exit_code = WEXITSTATUS(status);
 }
 
 static void	run_single_cmd(t_global *global, char **cmd_arr)
@@ -49,7 +49,7 @@ static void	run_single_cmd(t_global *global, char **cmd_arr)
 	else if (ft_strncmp(cmd_arr[0], "export", 7) == 0)
 		run_export(cmd_arr, global);
 	else if (ft_strncmp(cmd_arr[0], "exit", 5) == 0)
-		run_exit(cmd_arr, global);
+		run_exit(cmd_arr);
 }
 
 void	execute_single(t_global *global)

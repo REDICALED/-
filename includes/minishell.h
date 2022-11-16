@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 19:06:16 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 19:49:56 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,17 +133,15 @@ void	run_pwd(t_global *global);
 //builtin.c
 void	run_unset(char **cmd_arr, t_global *global);
 void	run_env(char **cmd_arr, t_global *global);
-void	run_exit(char **cmd_arr, t_global *global);
+void	run_exit(char **cmd_arr);
 
 //builtin_export.c
 void	run_export(char **cmd_arr, t_global *global);
 
-//execute_utils.c
+//execute.c
 char	**get_cmd_arr(t_p_mom *p_mom);
 int		is_builtin(char **cmd_arr);
 void	builtin_exit(t_global *global, int exit_code);
-
-//execute.c
 void	run_cmd(t_global *global, int idx);
 void	execute(t_global *global);
 

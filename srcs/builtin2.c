@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 05:28:43 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 16:37:48 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 20:03:15 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,10 @@ void	run_env(char **cmd_arr, t_global *global)
 	builtin_exit(global, 0);
 }
 
-void	run_exit(char **cmd_arr, t_global *global)
+void	run_exit(char **cmd_arr)
 {
 	int	i;
 
-	(void)global;
 	if (cmd_arr[1] == NULL)
 		exit(0);
 	if (cmd_arr[1] && cmd_arr[2])
