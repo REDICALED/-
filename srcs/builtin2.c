@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 05:28:43 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 20:03:15 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 22:25:10 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,24 +73,21 @@ void	run_exit(char **cmd_arr)
 
 	if (cmd_arr[1] == NULL)
 		exit(0);
-	if (cmd_arr[1] && cmd_arr[2])
+	i = -1;
+	while (cmd_arr[1][++i])
+	{
+		if (ft_isdigit(cmd_arr[1][i]) == 0)
+		{
+			ft_putstr_fd("exit: a: numeric argument required\n", 2);
+			free_arr(cmd_arr);
+			exit(255);
+		}
+	}
+	if (cmd_arr[2])
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
 		free_arr(cmd_arr);
 		exit(1);
 	}
-	else if (cmd_arr[1] && cmd_arr[2] == NULL)
-	{
-		i = -1;
-		while (cmd_arr[1][++i])
-		{
-			if (ft_isdigit(cmd_arr[1][i]) == 0)
-			{
-				ft_putstr_fd("exit: a: numeric argument required\n", 2);
-				free_arr(cmd_arr);
-				exit(255);
-			}
-		}
-		exit(ft_atoi(cmd_arr[1]));
-	}
+	exit(ft_atoi(cmd_arr[1]));
 }

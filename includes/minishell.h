@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 21:25:30 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 21:56:49 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct s_node
 {
 	char			*str;
 	t_token			token;
-	t_token			error_token;
 	struct s_node	*prev;
 	struct s_node	*next;
 }	t_node;
@@ -59,7 +58,6 @@ typedef struct s_p_mom
 	int		input;
 	int		output;
 	int		read_error;
-	int		pipe_error;
 	t_node	*head;
 	t_node	*tail;
 }				t_p_mom;
@@ -67,19 +65,16 @@ typedef struct s_p_mom
 typedef struct s_global
 {
 	char		**cp_envp;
+	char		*line;
 	int			p_count;
 	t_p_mom		*p_arr;
-	char		*line;
 	t_node		*head;
 	t_node		*tail;
 }				t_global;
 
 //util.c
-int		is_space(char *line);
 void	unlink_here_doc(t_global *global);
 void	free_global(t_global *global);
-void	ft_print_node(t_node *head);
-void	ft_print_mom(t_global *global);
 char	**copy_envp(char **envp);
 void	free_arr(char **arr);
 
@@ -131,7 +126,7 @@ void	run_echo(char **cmd_arr, t_global *global);
 void	run_cd(char **cmd_arr, t_global *global);
 void	run_pwd(t_global *global);
 
-//builtin.c
+//builtin2.c
 void	run_unset(char **cmd_arr, t_global *global);
 void	run_env(char **cmd_arr, t_global *global);
 void	run_exit(char **cmd_arr);
@@ -146,8 +141,6 @@ void	builtin_exit(t_global *global, int exit_code);
 void	run_cmd(t_global *global, int idx);
 void	execute(t_global *global);
 
-void	set_execute_signal(void);
-
 //execute_pipe.c
 void	execute_pipe(t_global *global);
 
@@ -156,5 +149,9 @@ void	run_execve(char **cmd_arr, t_global *global);
 
 //execute_execve.c
 void	execute_single(t_global *global);
+
+//singal.c
+void	set_signal(void);
+void	set_execute_signal(void);
 
 #endif

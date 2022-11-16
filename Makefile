@@ -24,6 +24,7 @@ SRC = main.c \
 		execute_single.c \
 		execute_pipe.c \
 		execve.c \
+		signal.c \
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
@@ -176,3 +177,20 @@ re: fclean all
 # error: 인자가 2개 이상인 경우 -> g_exit_code = 1
 # error: 인자가 숫자가 아닌 경우 -> g_exit_code = 255
 # error 아닌  경우 -> cmd_arr[1]로 exit 해줌
+
+
+# --- 5. 시그널 ---
+# 입력 아무 것도 없을 때
+# cntl-c -> 새 minishell$ 출력
+# cntl-\ -> 신호 무시
+# cntl-d -> 새 minishell$ 출력
+
+# 입력이 들어간 상태일 때
+# cntl-c -> 새 minishell$ 출력, read_buffer 삭제
+# cntl-\ -> 신호 무시
+# cntl-d -> 신호 무시
+
+# 실행할 때
+# cntl-c -> exit, 새 minishell$ 출력, read_buffer 삭제
+# cntl-\ -> exit, 새 minishell$ 출력, read_buffer 삭제
+# cntl-d -> exit, 새 minishell$ 출력, read_buffer 삭제
