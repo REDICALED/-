@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:35:43 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 17:41:48 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:50:00 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,7 @@ int is_builtin(t_global *global, int idx)
 void builtin_exit(t_global *global, int exit_code)
 {
 	if (global->p_count == 0)
-	{
 		g_exit_code = exit_code;
-		printf("exit_code: %d\n", g_exit_code);
-	}
 	else
 		exit(exit_code);
 }
