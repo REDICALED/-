@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 19:49:56 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 21:25:30 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "libft.h"
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <termios.h>
 
 int	g_exit_code;
 
@@ -144,6 +145,8 @@ int		is_builtin(char **cmd_arr);
 void	builtin_exit(t_global *global, int exit_code);
 void	run_cmd(t_global *global, int idx);
 void	execute(t_global *global);
+
+void	set_execute_signal(void);
 
 //execute_pipe.c
 void	execute_pipe(t_global *global);

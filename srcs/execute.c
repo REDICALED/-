@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:35:43 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 19:50:12 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 21:31:52 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	run_cmd(t_global *global, int idx)
 {
 	char	**cmd_arr;
 
+	if (global->p_count > 0)
+		set_execute_signal();
 	cmd_arr = get_cmd_arr(&(global->p_arr[idx]));
 	if (ft_strncmp(cmd_arr[0], "echo", 5) == 0)
 		run_echo(cmd_arr, global);

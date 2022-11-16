@@ -37,11 +37,11 @@ $(NAME): $(OBJ)
 	make -C $(LIB_DIR)
 #$(CC) $(OBJ) -L $(LIB_DIR) -lreadline -l ft -o $(NAME)
 #$(CC) $(OBJ) -L $(LIB_DIR) -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include -l ft -o $(NAME)
-	$(CC) $(OBJ) -L $(LIB_DIR) -lreadline -L ./readline/lib -I ./readline/include -l ft -o $(NAME)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L $(LIB_DIR) -l ft -L /Users/jinhokim/.brew/opt/readline/lib/ -l readline
 
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -I$(LIB_DIR) -I$(INC_DIR) -o $@ -c $<
+	$(CC) $(CFLAGS) -I$(LIB_DIR) -I$(INC_DIR) -I/Users/jinhokim/.brew/opt/readline/include/ -o $@ -c $<
 
 clean:
 	rm -rf $(OBJ)
@@ -52,27 +52,7 @@ fclean: clean
 	make -C $(LIB_DIR) fclean
 
 re: fclean all
-OBJ := $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
-all: $(NAME)
-
-$(NAME): $(OBJ)
-	make -C $(LIB_DIR)
-	$(CC) $(OBJ) -L $(LIB_DIR) -lreadline -l ft -o $(NAME)
-
-$(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
-	mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -I$(LIB_DIR) -I$(INC_DIR) -o $@ -c $<
-
-clean:
-	rm -rf $(OBJ)
-	make -C $(LIB_DIR) clean
-
-fclean: clean
-	rm -rf $(NAME)
-	make -C $(LIB_DIR) fclean
-
-re: fclean all
 
 # --- 1 토큰화 ---
 # 1. EOF인지?
