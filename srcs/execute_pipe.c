@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_pipe.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/16 19:27:05 by jinhokim          #+#    #+#             */
+/*   Updated: 2022/11/16 19:27:07 by jinhokim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	dup_child(t_global *global, int idx, int *fd)
@@ -60,17 +72,15 @@ static int	last_pipe_run(t_global *global, int idx)
 void	execute_pipe(t_global *global)
 {
 	int		i;
-	pid_t	pid_li[global->p_count + 1];
+	pid_t	*pid_li;
 	int		status;
 
-    i = 0;
+	i = 0;
+	pid_li = (pid_t *)malloc(sizeof(pid_t) * (global->p_count + 1));
 	while (i < global->p_count && global->p_arr[i].head)
 	{
 		if (global->p_arr[i].head && global->p_arr[i].head->token != e_pipe)
 			pid_li[i] = pipe_run(global, i);
-		else if ((global->p_arr[i].head && global->p_arr[i].head->token \
-				== e_pipe) || global->p_arr[i].head == NULL)
-			exit(global->p_arr[i].read_error);
 		i++;
 	}
 	pid_li[i] = last_pipe_run(global, i);
@@ -82,4 +92,5 @@ void	execute_pipe(t_global *global)
 			g_exit_code = WEXITSTATUS(status);
 		i++;
 	}
+	free(pid_li);
 }

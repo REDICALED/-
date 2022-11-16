@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 17:29:57 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 19:06:16 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,8 @@ void	run_export(char **cmd_arr, t_global *global);
 
 //execute_utils.c
 char	**get_cmd_arr(t_p_mom *p_mom);
-int 	is_builtin(t_global *global, int idx);
-void 	builtin_exit(t_global *global, int exit_code);
+int		is_builtin(char **cmd_arr);
+void	builtin_exit(t_global *global, int exit_code);
 
 //execute.c
 void	run_cmd(t_global *global, int idx);
