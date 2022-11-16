@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:32 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 08:08:04 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:52:45 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	free_global(t_global *global)
 	t_node	*tmp;
 	t_node	*node;
 
-	//unlink_here_doc(global);
+	unlink_here_doc(global);
 	node = global->head;
 	while (node)
 	{
@@ -60,50 +60,6 @@ void	free_global(t_global *global)
 		free(tmp);
 	}
 	free(global->p_arr);
-}
-
-void	ft_print_node(t_node *head)
-{
-	int		i;
-	t_node	*node;
-	char	token_li[13][10] = {"string", "built_in", "func", \
-		"space", "dollar", "s_quote", "d_quote", "read_in", \
-		"read_in2", "read_out", "read_out2", "e_pipe", "e_error"};
-
-	node = head;
-	i = 0;
-	while (node)
-	{
-		printf("i: %2d, token: %9s, str: %s\n", i, \
-						token_li[node->token], node->str);
-		node = node->next;
-		i++;
-	}
-}
-
-void	ft_print_mom(t_global *global)
-{
-	int		i;
-	t_p_mom	tmp;
-	char	token_li[13][10] = {"string", "built_in", "func", \
-		"space", "dollar", "s_quote", "d_quote", "read_in", \
-		"read_in2", "read_out", "read_out2", "e_pipe", "e_error"};
-
-	i = -1;
-	printf("\n");
-	while (++i <= global->p_count)
-	{
-		tmp = global->p_arr[i];
-		if (tmp.head && tmp.tail)
-		{
-			printf("head: %9s --- tail: %9s\n", \
-				token_li[tmp.head->token], token_li[tmp.tail->token]);
-			printf("input_fd: %d --- read_error: %d\n", \
-				tmp.input, tmp.read_error);
-			printf("output_fd: %d --- read_error: %d\n\n", \
-				tmp.output, tmp.read_error);
-		}
-	}
 }
 
 char	**copy_envp(char **envp)

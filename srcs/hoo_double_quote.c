@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:39 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/12 05:36:40 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 18:05:45 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,8 @@ void	hoo_double_quote(t_node *node, t_global *global)
 {
 	char	*res;
 
-	printf("=== double quote start ===\n");
-	printf("str: %s, str_len: %d\n", node->str, (int)ft_strlen(node->str));
 	node->token = string;
 	res = interpret_double(node->str, global->cp_envp);
 	free(node->str);
 	node->str = res;
-	printf("===  double quote end  ===\n");
-	printf("str: %s, str_len: %d\n\n", node->str, (int)ft_strlen(node->str));
 }

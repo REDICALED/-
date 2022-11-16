@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:04 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 17:44:09 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:53:43 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,14 @@ static void	init(int argc, char **argv)
 	(void)argv;
 }
 
-/*
 void	a(void)
 {
 	system("leaks minishell");
 }
-*/
 
 int	main(int argc, char **argv, char **envp)
 {
-	//atexit(a);
+	atexit(a);
 	char		*line;
 	t_global	global;
 
@@ -49,18 +47,15 @@ int	main(int argc, char **argv, char **envp)
 				free_global(&global);
 				free(line);
 				line = NULL;
-				printf("g_exit_code: %d\n", g_exit_code);
 				continue ;
 			}
 			redirection(&global);
-			ft_print_node(global.head);
-			ft_print_mom(&global);
 			execute(&global);
 			free_global(&global);
 		}
 		free(line);
 		line = NULL;
-		// printf("g_exit_code: %d\n", g_exit_code);
+		printf("g_exit_code: %d\n", g_exit_code);
 	}
 	free_arr(global.cp_envp);
 	return (0);
