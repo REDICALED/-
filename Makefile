@@ -21,6 +21,8 @@ SRC = main.c \
 		builtin2.c \
 		builtin_export.c \
 		execute.c \
+		execute_single.c \
+		execute_pipe.c \
 		execve.c \
 
 CC = cc

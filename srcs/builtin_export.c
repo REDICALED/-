@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 06:47:48 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 19:47:31 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 16:40:21 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	run_export(char **cmd_arr, t_global *global)
 	if (cmd_arr[1])
 	{
 		if (global->p_count != 0)
-			exit(0);
+			builtin_exit(global, 0);
 		while (cmd_arr[++i])
 		{
 			cmd_dict = env_split(cmd_arr[i]);
@@ -123,8 +123,8 @@ void	run_export(char **cmd_arr, t_global *global)
 				env_append(cmd_arr[i], global);
 			free_arr(cmd_dict);
 		}
-		exit(0);
+		builtin_exit(global, 0);
 	}
 	print_export(global);
-	exit(0);
+	builtin_exit(global, 0);
 }

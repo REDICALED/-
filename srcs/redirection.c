@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:23 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 07:22:34 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:48:26 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	redirection(t_global *global)
 	i = -1;
 	while (++i <= global->p_count)
 	{
-		g_exit_code = 0;
 		node = global->p_arr[i].head;
 		while (node && node != global->p_arr[i].tail->next)
 		{

@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 08:06:02 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:29:57 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int		hoo(t_global *global);
 void	hoo_here_doc(t_node *node, int i);
 
 //hoo_dollar.c
-int	env_strchr(char *s, char c);
+int		env_strchr(char *s, char c);
 char	**env_split(char *str);
 char	*find_env_value(char *str, char **cp_envp);
 void	hoo_dollar(t_node *node, t_global *global);
@@ -126,22 +126,34 @@ void	redirection(t_global *global);
 void	remove_redirection_util(t_global *global, t_node *node, t_node *tmp);
 
 //builtin.c
-void	run_echo(char **cmd_arr);
+void	run_echo(char **cmd_arr, t_global *global);
 void	run_cd(char **cmd_arr, t_global *global);
-void	run_pwd(void);
+void	run_pwd(t_global *global);
 
 //builtin.c
 void	run_unset(char **cmd_arr, t_global *global);
 void	run_env(char **cmd_arr, t_global *global);
-void	run_exit(char **cmd_arr);
+void	run_exit(char **cmd_arr, t_global *global);
 
 //builtin_export.c
 void	run_export(char **cmd_arr, t_global *global);
 
+//execute_utils.c
+char	**get_cmd_arr(t_p_mom *p_mom);
+int 	is_builtin(t_global *global, int idx);
+void 	builtin_exit(t_global *global, int exit_code);
+
 //execute.c
+void	run_cmd(t_global *global, int idx);
 void	execute(t_global *global);
 
-//execute_execve.c
+//execute_pipe.c
+void	execute_pipe(t_global *global);
+
+//execute_single.c
 void	run_execve(char **cmd_arr, t_global *global);
+
+//execute_execve.c
+void	execute_single(t_global *global);
 
 #endif

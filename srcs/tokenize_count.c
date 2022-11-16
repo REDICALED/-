@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:35:56 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/12 05:35:57 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 16:31:09 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ static int	count_4_check(t_global *global, int *i)
 	while (42)
 	{
 		++j;
-		if (global->line[j + (*i)] == 0 || \
-			global->line[j + (*i)] == '|')
+		if (global->line[j + (*i)] == 0)
 		{
 			add_node(global, e_error, global->line[(*i)]);
 			(*i) = (*i) + j;

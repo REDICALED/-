@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 05:28:43 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 06:55:56 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/16 16:37:48 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	run_unset(char **cmd_arr, t_global *global)
 			free_arr(dict);
 		}
 	}
-	exit(0);
+	builtin_exit(global, 0);
 }
 
 void	run_env(char **cmd_arr, t_global *global)
@@ -55,7 +55,7 @@ void	run_env(char **cmd_arr, t_global *global)
 	if (cmd_arr[1])
 	{
 		ft_putstr_fd("usage: env [with no options or arguments]\n", 2);
-		exit(1);
+		builtin_exit(global, 1);
 		return ;
 	}
 	i = -1;
@@ -64,13 +64,14 @@ void	run_env(char **cmd_arr, t_global *global)
 		if (env_strchr(global->cp_envp[i], '=') >= 0)
 			printf("%s\n", global->cp_envp[i]);
 	}
-	exit(0);
+	builtin_exit(global, 0);
 }
 
-void	run_exit(char **cmd_arr)
+void	run_exit(char **cmd_arr, t_global *global)
 {
 	int	i;
 
+	(void)global;
 	if (cmd_arr[1] == NULL)
 		exit(0);
 	if (cmd_arr[1] && cmd_arr[2])
