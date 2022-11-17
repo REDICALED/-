@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 22:40:10 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/17 17:01:30 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/17 22:06:49 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	g_exit_code;
 typedef enum s_token
 {
 	string,
-	built_in,
-	func,
 	space,
 	dollar,
 	s_quote,
