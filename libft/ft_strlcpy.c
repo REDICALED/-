@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/30 08:53:27 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/01 18:19:35 by jinhokim         ###   ########.fr       */
+/*   Created: 2022/04/02 15:32:17 by byeonkim          #+#    #+#             */
+/*   Updated: 2022/11/09 22:22:43 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <errno.h>
-
-typedef	struct s_node
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	
-}				t_nodea;
+	size_t	i;
 
-typedef struct s_cmd_list
-{
-	char		**env;
-	int			pipe;
-}					t_cmd_list;
-
-#endif
+	i = 0;
+	if (dstsize <= 0)
+		return (ft_strlen(src));
+	while (src[i] != '\0' && i < dstsize - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (ft_strlen(src));
+}

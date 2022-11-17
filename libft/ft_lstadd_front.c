@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: byeonkim <byeonkim.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/30 09:00:35 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/10/30 09:02:24 by jinhokim         ###   ########.fr       */
+/*   Created: 2022/04/18 17:22:46 by byeonkim          #+#    #+#             */
+/*   Updated: 2022/04/18 17:30:20 by byeonkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	is_space(char *line)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	int	i;
-
-	i = -1;
-	while (line[++i])
-	{
-		if (line[i] != ' ' && !(line[i] >= 9 && line[i] <= 13))
-			return (0);
-	}
-	return (1);
+	new -> next = *lst;
+	*lst = new;
 }
