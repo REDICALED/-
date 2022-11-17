@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:35:21 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 20:04:21 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:03:05 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,56 @@ void	run_echo(char **cmd_arr, t_global *global)
 	builtin_exit(global, 0);
 }
 
+static void	cd_env_update(char *old, char *new, t_global *global)
+{
+	int		i;
+	char	**env_dict;
+
+	i = -1;
+	while (global->cp_envp[++i])
+	{
+		env_dict = env_split(global->cp_envp[i]);
+		if (ft_strncmp("OLDPWD", env_dict[0], \
+			ft_strlen(env_dict[0]) + 1) == 0)
+		{
+			free(global->cp_envp[i]);
+			global->cp_envp[i] = ft_strjoin3("OLDPWD=", old);
+		}
+		else if (ft_strncmp("PWD", env_dict[0], \
+			ft_strlen(env_dict[0]) + 1) == 0)
+		{
+			free(global->cp_envp[i]);
+			global->cp_envp[i] = ft_strjoin3("PWD=", new);
+		}
+		free_arr(env_dict);
+	}
+}
+
 void	run_cd(char **cmd_arr, t_global *global)
 {
-	char	*value;
+	char	*old;
+	char	*new;
 
-	if (cmd_arr[1] == NULL || \
+	old = getcwd(NULL, 4096);
+	if ((cmd_arr[1] == NULL) || \
 		(cmd_arr[1] && ft_strncmp(cmd_arr[1], "~", 2) == 0))
 	{
-		value = find_env_value("$HOME", global->cp_envp);
-		chdir(value);
-		free(value);
+		new = find_env_value("$HOME", global->cp_envp);
+		chdir(new);
 	}
+	else if (chdir(cmd_arr[1]) == 0)
+		new = getcwd(NULL, 4096);
 	else
 	{
-		if (chdir(cmd_arr[1]) != 0)
-		{
-			ft_putstr_fd(cmd_arr[1], 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
-			builtin_exit(global, 1);
-			return ;
-		}	
-	}
+		ft_putstr_fd(cmd_arr[1], 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		free(old);
+		builtin_exit(global, 1);
+		return ;
+	}	
+	cd_env_update(old, new, global);
+	free(old);
+	free(new);
 	builtin_exit(global, 0);
 }
 

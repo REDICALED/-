@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 05:36:20 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 19:57:29 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:32:15 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static char	*get_cmd(char **path, char *cmd)
 	char	*joined_cmd;
 	char	*ret_cmd;
 
+	if (*cmd == 0)
+		return (NULL);
 	i = 0;
 	if (access(cmd, X_OK) != -1)
 		return (cmd);

@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 19:27:05 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 21:31:07 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/17 15:04:08 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static int	pipe_run(t_global *global, int idx)
 	pid = fork();
 	if (pid == 0)
 	{
+		set_execute_signal();
 		dup_child(global, idx, fd);
 		run_cmd(global, idx);
 	}
@@ -60,6 +61,7 @@ static int	last_pipe_run(t_global *global, int idx)
 	pid = fork();
 	if (pid == 0)
 	{
+		set_execute_signal();
 		if (p_mom->input != -1)
 			dup2(p_mom->input, STDIN_FILENO);
 		if (p_mom->output != -1)
@@ -85,6 +87,8 @@ void	execute_pipe(t_global *global)
 	}
 	pid_li[i] = last_pipe_run(global, i);
 	i = 0;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	while (i <= global->p_count && global->p_arr[i].head)
 	{
 		waitpid(pid_li[i], &status, 0);

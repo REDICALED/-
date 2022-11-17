@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:00 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/15 08:52:10 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/17 17:00:26 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int	hoo(t_global *global)
 	{
 		if (hoo_loop(&(global->p_arr[i]), global))
 		{
+			ft_putstr_fd("syntax error near unexpected token\n", 2);
 			error = 1;
 			break ;
 		}

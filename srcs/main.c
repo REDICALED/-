@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 05:36:04 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 22:36:30 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:58:38 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,9 @@ static void	init(int argc, char **argv, char **envp, t_global *global)
 	(void)argv;
 }
 
-static void	minishell(t_global *global)
+static void	minishell(char *line, t_global *global)
 {
-	char	*line;
-
-	line = readline("minishell$ ");
-	line = ft_strtrim(line, " ");
-	if (line && *line)
+	if (*line)
 	{
 		add_history(line);
 		tokenize(line, global);
@@ -54,13 +50,21 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_global		global;
 	struct termios	term;
+	char			*line;
 
 	tcgetattr(STDIN_FILENO, &term);
 	init(argc, argv, envp, &global);
 	while (42)
 	{
 		set_signal();
-		minishell(&global);
+		line = readline("minishell$ ");
+		if (!line)
+		{
+			free(line);
+			break ;
+		}
+		line = ft_strtrim(line, " ");
+		minishell(line, &global);
 	}
 	free_arr(global.cp_envp);
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);

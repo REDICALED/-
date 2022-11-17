@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 21:57:45 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 22:56:22 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/17 15:54:45 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	handler(int sig)
 {
-	//(void)sig;
 	if (sig == SIGINT)
 		printf("\n");
 	rl_on_new_line();
@@ -26,7 +25,6 @@ void	set_signal(void)
 {
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTERM, handler);
 }
 
 static void	execute_handler(int sig)
@@ -39,5 +37,4 @@ void	set_execute_signal(void)
 {
 	signal(SIGINT, execute_handler);
 	signal(SIGQUIT, execute_handler);
-	signal(SIGTERM, execute_handler);
 }

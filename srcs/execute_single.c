@@ -6,7 +6,7 @@
 /*   By: jinhokim <jinhokim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:06:56 by jinhokim          #+#    #+#             */
-/*   Updated: 2022/11/16 21:33:27 by jinhokim         ###   ########.fr       */
+/*   Updated: 2022/11/17 15:03:11 by jinhokim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ static void	run_single_execve(t_global *global, char **cmd_arr)
 	pid = fork();
 	if (pid == 0)
 	{
+		set_execute_signal();
 		if (global->p_arr[0].input != -1)
 			dup2(global->p_arr[0].input, STDIN_FILENO);
 		if (global->p_arr[0].output != -1)
 			dup2(global->p_arr[0].output, STDOUT_FILENO);
-		set_execute_signal();
 		run_execve(cmd_arr, global);
 	}
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	waitpid(pid, &status, 0);
 	g_exit_code = WEXITSTATUS(status);
 }
